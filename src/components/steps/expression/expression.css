@@ -1,0 +1,44 @@
+.expression-wrapper{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.expression-field{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+
+.expression-number{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+.expression-sign{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+}
+
+.fraction{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
+    padding: 10px;
+}
+
+.slash{
+    background-color: #000;
+    height: 2px;
+    width: 100%;
+}

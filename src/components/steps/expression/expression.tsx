@@ -1,5 +1,6 @@
 import React from "react";
 import './expression.css';
+import {parseExpression} from '../../../parsers';
 
 function ExpressionField({name, answer}:{name: string, answer: number}) {
   return(
@@ -24,7 +25,7 @@ function ExpressionFraction({numerator, denominator}:{numerator: string, denomin
     <div className="fraction">
       <div className="numerator"><Expression expression={numerator}/></div>
       <div className="slash"></div>
-      <div className="denominator"></div>
+      <div className="denominator"><Expression expression={denominator}/></div>
     </div>
   )
 }
@@ -32,6 +33,7 @@ function ExpressionFraction({numerator, denominator}:{numerator: string, denomin
 export function Expression({expression}:{expression: string}) {
   // const expression = '((a * b + c) / 5) * ((d * e + f) / 6)';
   // const expression = 'a * b + c + 5 + d * e + f';
+  const parsedExpression = parseExpression(expression);
   const answers = {
     a: 6,
     b: 5,
@@ -47,14 +49,16 @@ export function Expression({expression}:{expression: string}) {
     }
   ] 
   return (
-    <div>
-      {expression.split(' ').map(it => {
-        if(/^-?[0-9]*$/.test(it) ) {
-          return <ExpressionNumber value={Number(it)}/>
-        } else if (/^[-+*/]$/.test(it)) {
-          return <ExpressionSign sign={it}/>
-        } else if (/^[a-zA-Z]*$/.test(it)) {
-          return <ExpressionField name={it} answer={answers[it as keyof typeof answers]}/>
+    <div className="expression-wrapper">
+      {parsedExpression.map(it => {
+        if(it.type == 'number' ) {
+          return <ExpressionNumber value={Number(it.value)}/>
+        } else if (it.type == 'sign') {
+          return <ExpressionSign sign={it.value}/>
+        } else if (it.type == 'field') {
+          return <ExpressionField name={it.value} answer={answers[it.value as keyof typeof answers]}/>
+        } else if (it.type == 'frac') {
+          return <ExpressionFraction numerator={it.value[0]} denominator={it.value[1]}/>
         } else {
           throw new Error('Invalid expression!')
         }

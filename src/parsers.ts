@@ -24,11 +24,11 @@ function parseFunc(funcExpression: string) {
         }
     });
     funcProps.push(buffer.trim());
-    //funcProps = funcExpression.trim().slice(funcExpression.indexOf('(') + 1, -1).split(',').map(it => it.trim());
+    // funcProps = funcExpression.trim().slice(funcExpression.indexOf('(') + 1, -1).split(',').map(it => it.trim());
     console.log(funcExpression, funcName, funcProps);
     return {
         name: funcName,
-        arguments: funcProps//.map(it => parseExpression(it))
+        arguments: funcProps.map(it => parseExpression(it))
     }
 }
 
@@ -59,16 +59,17 @@ export function parseExpression(expression: string) {
         } else
             if (/^-?[0-9]*$/.test(it)) {
                 if (currentType == '') {
-
+                    currentType = 'number';
                 } else if (currentType == 'number') {
 
                 } else if (currentType == 'field') {
 
                 } else {
+                    currentType = 'number';
                     result.push({ type: 'number', value: currentLine.trim() });
                     currentLine = '';
                 }
-                currentType = 'number';
+                
                 currentLine += it;
 
             } else if (/^[-+*/]$/.test(it)) {
@@ -83,7 +84,7 @@ export function parseExpression(expression: string) {
                 currentType = 'sign';
                 currentLine += it;
 
-            } else if (/^[a-zA-Z]*$/.test(it)) {
+            } else if (/^[a-zA-Z@]*$/.test(it)) {
                 if (currentType == '') {
 
                 } else if (currentType == 'field') {
@@ -103,14 +104,25 @@ export function parseExpression(expression: string) {
 
             } else {
                 if (currentLine) {
-                    result.push(({ type: currentType, value: currentLine.trim() }));
+                    if(currentType == 'field') {
+                        const [name, answer] = currentLine.trim().split('@');
+                        result.push(({ type: currentType, value: {name, answer: Number(answer)} }));
+                    } else {
+                        result.push(({ type: currentType, value: currentLine.trim() }));
+                    }
+                    
                 }
                 currentType = '';
                 currentLine = '';
             }
     });
     if (currentLine) {
-        result.push(({ type: currentType, value: currentLine.trim() }));
+        if(currentType == 'field') {
+            const [name, answer] = currentLine.trim().split('@');
+            result.push(({ type: currentType, value: {name, answer: Number(answer)} }));
+        } else {
+            result.push(({ type: currentType, value: currentLine.trim() }));
+        }
     }
     console.log(result);
     return result;

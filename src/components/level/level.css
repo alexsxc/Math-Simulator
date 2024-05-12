@@ -1,0 +1,28 @@
+.full-expression{
+    display: flex;
+    /*align-items: center;*/
+}
+
+.equal{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hint-slot{
+    display: flex;
+    justify-content: center;
+}
+
+.hint{
+    padding: 10px;
+    background-color: #f90;
+}
+
+.step{
+    /*height: 100%;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

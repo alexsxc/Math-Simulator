@@ -1,0 +1,35 @@
+.expression-passive .expression-wrapper{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.expression-passive .expression-number{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+}
+
+.expression-passive .expression-sign{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+}
+
+.expression-passive .fraction{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;  
+    padding: 5px;
+}
+
+.expression-passive .slash{
+    background-color: #000;
+    height: 2px;
+    width: 100%;
+}

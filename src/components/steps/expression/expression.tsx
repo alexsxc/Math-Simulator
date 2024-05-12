@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import './expression.css';
+import './expressionPassive.css';
 import { parseExpression } from '../../../parsers';
 
 function ExpressionField({ name, answer, onChangeCorrectState }: { name: string, answer: number, onChangeCorrectState: (isCorrect: boolean) => void }) {
@@ -54,7 +55,7 @@ function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: { 
   )
 }
 
-export function Expression({ expression, onChangeCorrectState }: { expression: Array<{ type: string, value: any }>, onChangeCorrectState?: (isCorrect: boolean) => void }) {
+export function Expression({ expression, onChangeCorrectState, isPassive }: { expression: Array<{ type: string, value: any }>, onChangeCorrectState?: (isCorrect: boolean) => void, isPassive?: boolean}) {
   // const expression = '((a * b + c) / 5) * ((d * e + f) / 6)';
   // const expression = 'a * b + c + 5 + d * e + f';
   // const parsedExpression = parseExpression(expression);
@@ -90,7 +91,7 @@ export function Expression({ expression, onChangeCorrectState }: { expression: A
     }
   ]
   return (
-    <div className="expression-wrapper">
+    <div className={`expression-wrapper ${isPassive ? 'expression-passive':''}`}>
       {expression.map((it, index) => {
         if (it.type == 'number') {
           return <ExpressionNumber value={Number(it.value)} />

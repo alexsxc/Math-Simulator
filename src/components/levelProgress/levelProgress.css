@@ -1,0 +1,35 @@
+.level-progress{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px red solid;
+}
+
+.level-progress-header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.level-progress-solved{
+
+}
+
+.level-progress-complete{
+    display: flex;
+    gap: 10px;
+}
+
+.level-progress-status{
+    position: relative;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #ccf;
+    margin-top: 10px;
+}
+
+.level-progress-bar{
+    position: absolute;
+    height: 100%;
+    width: 10%;
+    border-radius: 10px;
+    background-color: blue;
+}

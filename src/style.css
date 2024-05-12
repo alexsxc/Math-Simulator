@@ -41,10 +41,22 @@ button {
   vertical-align: middle;
 }
 
+.app {
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f7f7;
+  height: 100vh;
+}
+
 .app__wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  max-width: 1360px;
+  height: 100%;
+  margin: 0 auto;
   padding: 40px;
   padding-bottom: 36px;
-  background-color: #f4f7f7;
 }
 
 .status-bar {
@@ -106,4 +118,16 @@ button {
 
 .progress__button--inactive {
   opacity: 0.5;
+}
+
+.game-field {
+  width: 100%;
+  height: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 40px;
+  margin-top: 16px;
+  padding: 26px 44px;
+
 }

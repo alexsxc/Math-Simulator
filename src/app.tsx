@@ -18,7 +18,7 @@ export default function App() {
   const parsedExpression = parseExpression(expression);
   //console.log(parseExpression(expression));
   return (
-    <>
+    <div className="app">
       <Header />
       <div className="app__wrapper">
         <div className="status-bar">
@@ -39,10 +39,10 @@ export default function App() {
 
         </div>
         <div className="game-field">
-          <Level steps={[expressionP, expression1, expression]}></Level>
+          <Level steps={[expression1, expression1, expression]}></Level>
           {/*<Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>*/}
         </div>
       </div>
-    </>
+    </div>
   )
 }

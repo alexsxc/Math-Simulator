@@ -1,9 +1,12 @@
 import React from "react";
-import './style.css';
+import { Header } from "./components/header/header";
 import { Expression } from './components/steps/expression/expression';
 import { parseExpression } from "./parsers";
 import { Level } from "./components/level/level";
 import { LevelProgress } from "./components/levelProgress/levelProgress";
+import { StepProgress } from "./components/stepProgress/stepProgress";
+import './assets/fonts/fonts.css';
+import './style.css';
 
 export default function App() {
   //const expression = 'a * b + c + 5 + $frac(1 + 2, 4) + d * e + f';
@@ -16,24 +19,30 @@ export default function App() {
   //console.log(parseExpression(expression));
   return (
     <>
-    <header>
-      <div className="logo">
-        <img src="" alt="" />
-        <p>Математический тренажер</p>
+      <Header />
+      <div className="app__wrapper">
+        <div className="status-bar">
+          <div className="status-bar__path-wrapper">
+            <div className="level-path">
+              <p className="level-path__item">Тренажер / Арифметические действия с обыкновенными дробями. </p>
+              <p className="level-path__item">Умножение.</p>
+            </div>
+          </div>
+          <div className="status-bar__progress progress">
+            <LevelProgress completeCount={0} totalCount={15}></LevelProgress>
+            <StepProgress completeCount={0} totalCount={15}/>
+            <button className="progress__button progress__button--hint">
+              <span>Подсказка</span>
+              </button>
+            <button className="progress__button progress__button--next-level progress__button--inactive">Следующий пример</button>
+          </div>
+
+        </div>
+        <div className="game-field">
+          <Level steps={[expressionP, expression1, expression]}></Level>
+          {/*<Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>*/}
+        </div>
       </div>
-    </header>
-    <div className="wrapper">
-      <div className="status-bar">
-        <div className="level-path">Тренажер / Арифметические действия с обыкновенными дробями. Умножение.</div>
-        <LevelProgress completeCount={0} totalCount={15}></LevelProgress>
-        <div className="step"></div>
-        <button className="next-level"></button>
-      </div>
-      <div className="game-field">
-        <Level steps={[expressionP, expression1, expression]}></Level>
-        {/*<Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>*/}
-      </div>
-    </div>
     </>
   )
 }

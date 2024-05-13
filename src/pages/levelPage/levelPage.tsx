@@ -5,6 +5,8 @@ import { StepProgress } from "../../components/stepProgress/stepProgress";
 import { parseExpression } from "../../parsers";
 import { Link, useParams } from "react-router-dom";
 import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
+import { DraftPopup } from "../../components/draftPopup/draftPopup";
+import { DraftSumm } from "../../components/steps/draft/draft";
 
 export function LevelPage() {
   const [stepCompleteCount, setStepCompleteCount] = useState(0);
@@ -74,7 +76,9 @@ export function LevelPage() {
           {/*<Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>*/}
           {isCompleteLevel && <SuccessPopup />}
           {isActiveHint && <ErrorPopup />}
+          
         </div>
+        
       </div>
     </>
   )

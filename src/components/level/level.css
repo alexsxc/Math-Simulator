@@ -30,3 +30,12 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.draft-wrapper {
+    display: flex;
+}
+
+.level {
+    position: relative;
+    height: 100%;
+}

@@ -9,13 +9,13 @@ interface IExpressionField {
   onChangeCorrectState: (isCorrect: string) => void
 }
 
-function ExpressionField({ name, answer, onChangeCorrectState }: IExpressionField) {
+export function ExpressionField({ name, answer, onChangeCorrectState }: IExpressionField) {
   const [value, setValue] = useState('');
   const [isCorrect, setCorrect] = useState('empty');
 
    useEffect(() => {
     let newIsCorrect = 'empty';
-    if(answer == Number(value)) {
+    if(value != '' && answer === Number(value)) {
       newIsCorrect = 'correct';
     } else if(value != '') {
       newIsCorrect = 'incorrect';
@@ -35,7 +35,7 @@ interface IExpressionSign {
   sign: string
 }
 
-function ExpressionSign({ sign }: IExpressionSign) {
+export function ExpressionSign({ sign }: IExpressionSign) {
   return (
     <div className="expression-sign">{sign}</div>
   )
@@ -45,7 +45,7 @@ interface IExpressionNumber {
   value: number
 }
 
-function ExpressionNumber({ value }: IExpressionNumber) {
+export function ExpressionNumber({ value }: IExpressionNumber) {
   return (
     <div className="expression-number">{value}</div>
   )

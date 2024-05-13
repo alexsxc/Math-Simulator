@@ -4,10 +4,13 @@ import { LevelProgress } from "../../components/levelProgress/levelProgress";
 import { StepProgress } from "../../components/stepProgress/stepProgress";
 import { parseExpression } from "../../parsers";
 import { Link, useParams } from "react-router-dom";
+import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
 
 export function LevelPage() {
   const [stepCompleteCount, setStepCompleteCount] = useState(0);
   const [isActiveHint, setIsActiveHint] = useState(false);
+  const [isCompleteLevel, setIsCompleteLevel] = useState(false);
+
   const levelsStepTotal = [2, 2, 2];
   const { id } = useParams();
   const expression2 = 'a * b + c + 5 + $frac(1 + 2, 4) + d * e + f';
@@ -23,21 +26,23 @@ export function LevelPage() {
       console.log('qqqqqqqqqqqqqqqqqqqqqqqqq',step);
       setStepCompleteCount(step - 1);
     }} onCompleteLevel={() => {
-
+      setIsCompleteLevel(true);
     }} onChangeCorrectStepState={(step, state) => {
       setIsActiveHint(state == 'incorrect')
     }}></Level>,
+
     <Level steps={[expressionP, expression1, expression]} onCompleteStep={(step) => {
       setStepCompleteCount(step - 1);
     }} onCompleteLevel={() => {
-
+      setIsCompleteLevel(true);
     }} onChangeCorrectStepState={(step, state) => {
       setIsActiveHint(state == 'incorrect')
     }}></Level>,
+
     <Level steps={[expression2, expression1, expression]} onCompleteStep={(step) => {
       setStepCompleteCount(step - 1);
     }} onCompleteLevel={() => {
-
+      setIsCompleteLevel(true);
     }} onChangeCorrectStepState={(step, state) => {
       setIsActiveHint(state == 'incorrect')
     }}></Level>
@@ -59,7 +64,7 @@ export function LevelPage() {
             <button className={`progress__button progress__button--hint ${isActiveHint ? "progress__button--hint-active" : ""}`}>
               <span>Подсказка</span>
             </button>
-            <button className="progress__button progress__button--next-level progress__button--inactive">
+            <button className={`progress__button progress__button--next-level ${isCompleteLevel ? "" : "progress__button--inactive" }`}>
               <span>Следующий пример</span>
             </button>
           </div>
@@ -67,6 +72,8 @@ export function LevelPage() {
         <div className="game-field">
           {levels[Number(id)]}
           {/*<Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>*/}
+          {isCompleteLevel && <SuccessPopup />}
+          {isActiveHint && <ErrorPopup />}
         </div>
       </div>
     </>

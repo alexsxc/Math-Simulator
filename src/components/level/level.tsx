@@ -39,7 +39,7 @@ export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectS
                                     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect);
                                     setActiveStep(last=> Math.max(index+1, last));
                                     onCompleteStep(nextStep);
-                                    if(nextStep == steps.length-1) {
+                                    if(nextStep == steps.length) {
                                         onCompleteLevel();
                                     }
                                 }

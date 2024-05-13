@@ -103,6 +103,10 @@ button {
   border-radius: 24px;
 }
 
+.progress__button--hint-active {
+  background: #FFB84D;
+}
+
 .progress__button--hint span {
   padding-left: 27px;
   background-image: url('./assets/icons/bulb.png');

@@ -69,5 +69,9 @@
 .expression-field--correct {
     background: rgba(0, 198, 79, 0.04);
     border: 1px solid #00C64F;
-    border-radius: 12px;
+}
+
+.expression-field--incorrect {
+    background: rgba(255, 0, 0, 0.4);
+    border: 1px solid #FF4D20;
 }

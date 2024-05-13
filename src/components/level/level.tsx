@@ -30,8 +30,12 @@ export function Level({ steps }: ILevelProps) {
                             </div>
                             
                             <Expression expression={it} onChangeCorrectState={(isCorrect) => {
-                                console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect);
-                                setActiveStep(last=> Math.max(index+1, last))
+                               
+                                if(isCorrect == 'correct') {
+                                    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect);
+                                    setActiveStep(last=> Math.max(index+1, last));
+                                }
+                               
                             }} isPassive={index == 0}/>
                             <div className="hint-slot">
                                 <div className="hint hint-down">

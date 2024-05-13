@@ -39,6 +39,7 @@ img {
 button {
   border: 1px solid transparent;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 .app {
@@ -55,7 +56,7 @@ button {
   max-width: 1360px;
   height: 100%;
   margin: 0 auto;
-  padding: 40px;
+  padding: 40px 0;
   padding-bottom: 36px;
 }
 
@@ -129,5 +130,4 @@ button {
   border-radius: 40px;
   margin-top: 16px;
   padding: 26px 44px;
-
 }

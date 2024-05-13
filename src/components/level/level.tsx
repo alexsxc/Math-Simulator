@@ -25,7 +25,7 @@ export function Level({ steps }: ILevelProps) {
                         <div className="step">
                             <div className="hint-slot">
                                 <div className="hint hint-up">
-                                    делаем это
+                                Переводим в неправильную дробь :
                                 </div>
                             </div>
                             

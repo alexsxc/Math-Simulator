@@ -9,14 +9,14 @@ interface IStepProgressProps{
 export function StepProgress({ completeCount, totalCount}: IStepProgressProps) {
     return (
         <div className="step-progress">
-            <div className="step-progress-header">
-                <div className="step-progress-solved">
+            <div className="step-progress__header">
+                <div className="step-progress__solved">
                     Решено этапов в примере
                 </div>
-                <div className="step-progress-complete">
-                    <div>{completeCount}</div>
+                <div className="step-progress__complete">
+                    <div className="step-progress__complete-count">{completeCount}</div>
                     <div>из</div>
-                    <div>{totalCount}</div>
+                    <div  className="step-progress__total-count">{totalCount}</div>
                 </div>
             </div>
         </div>

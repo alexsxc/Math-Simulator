@@ -18,8 +18,10 @@
 }
 
 .hint{
-    padding: 10px;
-    background-color: #f90;
+    padding: 16px 12px;
+    font-weight: 600;
+    background-color: #FFB84D;
+    border-radius: 12px;
 }
 
 .step{

@@ -33,10 +33,11 @@ export default function App() {
             <StepProgress completeCount={0} totalCount={15}/>
             <button className="progress__button progress__button--hint">
               <span>Подсказка</span>
-              </button>
-            <button className="progress__button progress__button--next-level progress__button--inactive">Следующий пример</button>
+            </button>
+            <button className="progress__button progress__button--next-level progress__button--inactive">
+              <span>Следующий пример</span>
+            </button>
           </div>
-
         </div>
         <div className="game-field">
           <Level steps={[expression1, expression1, expression]}></Level>

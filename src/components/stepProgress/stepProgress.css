@@ -6,7 +6,7 @@
     border-radius: 10px;
 }
 
-.step-progress-header{
+.step-progress__header{
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -16,11 +16,11 @@
     color: #3CC7FF;
 }
 
-.step-progress-solved {
+.step-progress__solved {
    
 }
 
-.step-progress-complete{
+.step-progress__complete{
     display: flex;
     gap: 10px;
 }

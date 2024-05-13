@@ -9,18 +9,18 @@ interface ILevelProgressProps{
 export function LevelProgress({ completeCount, totalCount}: ILevelProgressProps) {
     return (
         <div className="level-progress">
-            <div className="level-progress-header">
-                <div className="level-progress-solved">
+            <div className="level-progress__header">
+                <div className="level-progress__solved">
                     Решено примеров
                 </div>
-                <div className="level-progress-complete">
-                    <div>{completeCount}</div>
+                <div className="level-progress__complete">
+                    <div className="level-progress__complete-count">{completeCount}</div>
                     <div>из</div>
-                    <div>{totalCount}</div>
+                    <div className="level-progress__total-count">{totalCount}</div>
                 </div>
             </div>
-            <div className="level-progress-status">
-                <div className="level-progress-bar">
+            <div className="level-progress__status">
+                <div className="level-progress__bar">
                 </div>
             </div>
         </div>

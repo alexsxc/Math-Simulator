@@ -5,35 +5,36 @@
     background-color: #fff;
 }
 
-.level-progress-header{
+.level-progress__header{
     display: flex;
     justify-content: space-between;
     gap: 10px;
     color: #3CC7FF;
 }
 
-.level-progress-solved{
+.level-progress__solved{
 
 }
 
-.level-progress-complete{
+.level-progress__complete{
     display: flex;
-    gap: 10px;
+    gap: 8px;
     font-weight: bold;
 }
 
-.level-progress-status{
+.level-progress__status{
     position: relative;
-    height: 10px;
+    height: 16px;
     border-radius: 10px;
-    background-color: #ccf;
+    background-color: #F2FDFF;
     margin-top: 10px;
+    overflow: hidden;
 }
 
-.level-progress-bar{
+.level-progress__bar{
     position: absolute;
     height: 100%;
     width: 10%;
-    border-radius: 10px;
-    background-color: blue;
+    /* border-radius: 10px; */
+    background: linear-gradient(180deg, #3CC7FF 0%, #4BDAFF 100%);
 }

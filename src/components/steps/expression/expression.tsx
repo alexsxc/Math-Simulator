@@ -3,7 +3,13 @@ import './expression.css';
 import './expressionPassive.css';
 import { parseExpression } from '../../../parsers';
 
-function ExpressionField({ name, answer, onChangeCorrectState }: { name: string, answer: number, onChangeCorrectState: (isCorrect: boolean) => void }) {
+interface IExpressionField {
+  name: string,
+  answer: number,
+  onChangeCorrectState: (isCorrect: boolean) => void
+}
+
+function ExpressionField({ name, answer, onChangeCorrectState }: IExpressionField) {
   const [value, setValue] = useState('');
   const [isCorrect, setCorrect] = useState(false);
 
@@ -16,25 +22,38 @@ function ExpressionField({ name, answer, onChangeCorrectState }: { name: string,
     }
   }, [value, answer]);
 
-
   return (
     <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${isCorrect ? "expression-field--correct" : ""}`} />
   )
 };
 
-function ExpressionSign({ sign }: { sign: string }) {
+interface IExpressionSign {
+  sign: string
+}
+
+function ExpressionSign({ sign }: IExpressionSign) {
   return (
     <div className="expression-sign">{sign}</div>
   )
 };
 
-function ExpressionNumber({ value }: { value: number }) {
+interface IExpressionNumber {
+  value: number
+}
+
+function ExpressionNumber({ value }: IExpressionNumber) {
   return (
     <div className="expression-number">{value}</div>
   )
 };
 
-function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: { numerator: Array<{ type: string, value: any }>, denominator: Array<{ type: string, value: any }>, onChangeCorrectState?: (isCorrect: boolean) => void }) {
+interface IExpressionFraction {
+  numerator: Array<{ type: string, value: any }>,
+  denominator: Array<{ type: string, value: any }>,
+  onChangeCorrectState?: (isCorrect: boolean) => void
+}
+
+function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IExpressionFraction) {
   const [correctFields, setCorrectFields] = useState<Record<string, boolean>>({ numerator: false, denominator: false });
   const [isCorrect, setCorrect] = useState(false);
 
@@ -55,7 +74,13 @@ function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: { 
   )
 }
 
-export function Expression({ expression, onChangeCorrectState, isPassive }: { expression: Array<{ type: string, value: any }>, onChangeCorrectState?: (isCorrect: boolean) => void, isPassive?: boolean}) {
+interface IExpression {
+  expression: Array<{ type: string, value: any }>,
+  onChangeCorrectState?: (isCorrect: boolean) => void,
+  isPassive?: boolean
+}
+
+export function Expression({ expression, onChangeCorrectState, isPassive }: IExpression) {
   // const expression = '((a * b + c) / 5) * ((d * e + f) / 6)';
   // const expression = 'a * b + c + 5 + d * e + f';
   // const parsedExpression = parseExpression(expression);

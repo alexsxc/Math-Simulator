@@ -5,9 +5,12 @@ import { Expression } from "../steps/expression/expression";
 
 interface ILevelProps{
     steps: Array<string>;
+    onCompleteStep: (step: number) => void;
+    onCompleteLevel: () => void;
+    onChangeCorrectStepState: (step: number, state: string) => void;
 }
 
-export function Level({ steps }: ILevelProps) {
+export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectStepState }: ILevelProps) {
     const parsedSteps = steps.map(it=>parseExpression(it));
     const [activeStep, setActiveStep] = useState(1);
     return (
@@ -30,10 +33,15 @@ export function Level({ steps }: ILevelProps) {
                             </div>
                             
                             <Expression expression={it} onChangeCorrectState={(isCorrect) => {
-                               
+                               onChangeCorrectStepState(activeStep, isCorrect);
                                 if(isCorrect == 'correct') {
+                                    const nextStep = Math.max(index+1, activeStep);
                                     console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect);
                                     setActiveStep(last=> Math.max(index+1, last));
+                                    onCompleteStep(nextStep);
+                                    if(nextStep == steps.length-1) {
+                                        onCompleteLevel();
+                                    }
                                 }
                                
                             }} isPassive={index == 0}/>

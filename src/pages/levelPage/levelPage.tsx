@@ -12,8 +12,38 @@ export function LevelPage() {
   const [stepCompleteCount, setStepCompleteCount] = useState(0);
   const [isActiveHint, setIsActiveHint] = useState(false);
   const [isCompleteLevel, setIsCompleteLevel] = useState(false);
+  const levelsData: Array<{
+    steps: Array<{expression: string, messageTop?: string, messageBottom?: string}>
+  }> = [{
+    steps: [
+      {
+        expression: '3 $frac(2, 9) + 4 $frac(3, 7)',
+        messageTop: 'Переводим в неправильную дробь :',
+      },
+      {
+        expression: '$frac(a@29, 9) + $frac(b@31, 7)',
+        messageBottom: 'Находим ОЗ \n ОЗ = З*З'
+      },
+      {
+        expression: '$frac(29, 9) + $frac(31, 7)',
+        messageTop: 'Делаем диагональное умножение \n знаменателя на числитель',
+      },
+      {
+        expression: '$frac(a@203, 63) + $frac(b@279, 63)',
+        messageTop: 'Складываем'
+      },
+      {
+        expression:  '$frac(a@482, 63)'
+      },
+      {
+        expression:  'a@7 $frac(b@41, 63)',
+        messageTop: 'Сократить и (или) выделить \n целую часть'
+      }    
+    ],
+   
+  }]
 
-  const levelsStepTotal = [2, 2, 2];
+  const levelsStepTotal = [levelsData[0].steps.length-1, 2, 2];
   const { id } = useParams();
   const expression2 = 'a * b + c + 5 + $frac(1 + 2, 4) + d * e + f';
   //const expression = 'a * b + c + 5 + $frac(1 + 2, 4 + v * x) + d * e + f';
@@ -24,7 +54,7 @@ export function LevelPage() {
   const parsedExpression = parseExpression(expression);
   //console.log(parseExpression(expression));
   const levels = [
-    <Level steps={[expression1, expression1, expression]} onCompleteStep={(step) => {
+    <Level steps={levelsData[0].steps} onCompleteStep={(step) => {
       console.log('qqqqqqqqqqqqqqqqqqqqqqqqq',step);
       setStepCompleteCount(step - 1);
     }} onCompleteLevel={() => {
@@ -33,21 +63,21 @@ export function LevelPage() {
       setIsActiveHint(state == 'incorrect')
     }}></Level>,
 
-    <Level steps={[expressionP, expression1, expression]} onCompleteStep={(step) => {
-      setStepCompleteCount(step - 1);
-    }} onCompleteLevel={() => {
-      setIsCompleteLevel(true);
-    }} onChangeCorrectStepState={(step, state) => {
-      setIsActiveHint(state == 'incorrect')
-    }}></Level>,
+    // <Level steps={[expressionP, expression1, expression]} onCompleteStep={(step) => {
+    //   setStepCompleteCount(step - 1);
+    // }} onCompleteLevel={() => {
+    //   setIsCompleteLevel(true);
+    // }} onChangeCorrectStepState={(step, state) => {
+    //   setIsActiveHint(state == 'incorrect')
+    // }}></Level>,
 
-    <Level steps={[expression2, expression1, expression]} onCompleteStep={(step) => {
-      setStepCompleteCount(step - 1);
-    }} onCompleteLevel={() => {
-      setIsCompleteLevel(true);
-    }} onChangeCorrectStepState={(step, state) => {
-      setIsActiveHint(state == 'incorrect')
-    }}></Level>
+    // <Level steps={[expression2, expression1, expression]} onCompleteStep={(step) => {
+    //   setStepCompleteCount(step - 1);
+    // }} onCompleteLevel={() => {
+    //   setIsCompleteLevel(true);
+    // }} onChangeCorrectStepState={(step, state) => {
+    //   setIsActiveHint(state == 'incorrect')
+    // }}></Level>
   ]
   return (
     <>

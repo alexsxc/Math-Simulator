@@ -6,14 +6,14 @@ import { DraftSumm } from "../steps/draft/draft";
 import { DraftPopup } from "../draftPopup/draftPopup";
 
 interface ILevelProps {
-    steps: Array<string>;
+    steps: Array<{ expression: string, messageTop?: string, messageBottom?: string }>;
     onCompleteStep: (step: number) => void;
     onCompleteLevel: () => void;
     onChangeCorrectStepState: (step: number, state: string) => void;
 }
 
 export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectStepState }: ILevelProps) {
-    const parsedSteps = steps.map(it => parseExpression(it));
+    const parsedSteps = steps.map(it => parseExpression(it.expression));
     const [activeStep, setActiveStep] = useState(1);
     const [isOpenDraft, setIsOpenDraft] = useState(false);
     return (
@@ -29,10 +29,11 @@ export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectS
                         }
                         return <>
                             <div className="step">
-                                <div className="hint-slot">
-                                    <div className="hint hint-up">
-                                        Переводим в неправильную дробь :
-                                    </div>
+                                <div className="hint-slot hint-slot--up">
+                                    {steps[index].messageTop && <div className="hint hint-up">
+                                        {steps[index].messageTop}
+                                    </div>}
+
                                 </div>
 
                                 <Expression expression={it} onChangeCorrectState={(isCorrect) => {
@@ -48,10 +49,10 @@ export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectS
                                     }
 
                                 }} isPassive={index == 0} />
-                                <div className="hint-slot">
-                                    <div className="hint hint-down">
-                                        и вот то
-                                    </div>
+                                <div className="hint-slot hint-slot--down">
+                                    {steps[index].messageBottom && <div className="hint hint-down">
+                                        {steps[index].messageBottom}
+                                    </div>}
                                 </div>
 
                             </div>

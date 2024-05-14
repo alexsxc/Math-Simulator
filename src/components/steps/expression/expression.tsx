@@ -1,44 +1,74 @@
 import React, { useEffect, useMemo, useState } from "react";
 import './expression.css';
+import './expressionPassive.css';
 import { parseExpression } from '../../../parsers';
 
-function ExpressionField({ name, answer, onChangeCorrectState }: { name: string, answer: number, onChangeCorrectState: (isCorrect: boolean) => void }) {
-  const [value, setValue] = useState('');
-  const [isCorrect, setCorrect] = useState(false);
+interface IExpressionField {
+  name: string,
+  answer: number,
+  onChangeCorrectState: (isCorrect: string) => void
+}
 
-  // const isCorrect: boolean = useMemo(() => { 
-  useEffect(() => {
-    const newIsCorrect = answer === Number(value);
+export function ExpressionField({ name, answer, onChangeCorrectState }: IExpressionField) {
+  const [value, setValue] = useState('');
+  const [isCorrect, setCorrect] = useState('empty');
+
+   useEffect(() => {
+    let newIsCorrect = 'empty';
+    if(value != '' && answer === Number(value)) {
+      newIsCorrect = 'correct';
+    } else if(value != '') {
+      newIsCorrect = 'incorrect';
+    }
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState(newIsCorrect);
       setCorrect(newIsCorrect);
     }
   }, [value, answer]);
 
-
   return (
-    <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${isCorrect ? "expression-field--correct" : ""}`} />
+    <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{'empty' : '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect"} [isCorrect]}`} />
   )
 };
 
-function ExpressionSign({ sign }: { sign: string }) {
+interface IExpressionSign {
+  sign: string
+}
+
+export function ExpressionSign({ sign }: IExpressionSign) {
   return (
     <div className="expression-sign">{sign}</div>
   )
 };
 
-function ExpressionNumber({ value }: { value: number }) {
+interface IExpressionNumber {
+  value: number
+}
+
+export function ExpressionNumber({ value }: IExpressionNumber) {
   return (
     <div className="expression-number">{value}</div>
   )
 };
 
-function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: { numerator: Array<{ type: string, value: any }>, denominator: Array<{ type: string, value: any }>, onChangeCorrectState?: (isCorrect: boolean) => void }) {
-  const [correctFields, setCorrectFields] = useState<Record<string, boolean>>({ numerator: false, denominator: false });
-  const [isCorrect, setCorrect] = useState(false);
+interface IExpressionFraction {
+  numerator: Array<{ type: string, value: any }>,
+  denominator: Array<{ type: string, value: any }>,
+  onChangeCorrectState?: (isCorrect: string) => void
+}
+
+function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IExpressionFraction) {
+  const [correctFields, setCorrectFields] = useState<Record<string, string>>({ numerator: 'empty', denominator: 'empty' });
+  const [isCorrect, setCorrect] = useState('empty');
 
   useEffect(() => {
-    const newIsCorrect = Object.values(correctFields).find(it => it == false) == undefined;
+    let newIsCorrect = 'empty';
+    if(Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+      newIsCorrect = 'correct';
+    } else if(Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+
     console.log(correctFields);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState?.(newIsCorrect);
@@ -54,28 +84,40 @@ function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: { 
   )
 }
 
-export function Expression({ expression, onChangeCorrectState }: { expression: Array<{ type: string, value: any }>, onChangeCorrectState?: (isCorrect: boolean) => void }) {
+interface IExpression {
+  expression: Array<{ type: string, value: any }>,
+  onChangeCorrectState?: (isCorrect: string) => void,
+  isPassive?: boolean
+}
+
+export function Expression({ expression, onChangeCorrectState, isPassive }: IExpression) {
   // const expression = '((a * b + c) / 5) * ((d * e + f) / 6)';
   // const expression = 'a * b + c + 5 + d * e + f';
   // const parsedExpression = parseExpression(expression);
-  const fields: Record<string, boolean> = {};
+  const fields: Record<string, string> = {};
   const iterateExpression = (expression: Array<{ type: string, value: any }>) => {
     expression.forEach((it, index) => {
       if (it.type == 'field') {
-        fields[it.value.name] = false;
+        fields[it.value.name] = 'empty';
       } else if (it.type != 'number' && it.type != 'sign') {
-        fields[index.toString()] = false;
+        fields[index.toString()] = 'empty';
       }
     })
   }
   iterateExpression(expression);
 
-  const [correctFields, setCorrectFields] = useState<Record<string, boolean>>(fields);
-  const [isCorrect, setCorrect] = useState(false);
+  const [correctFields, setCorrectFields] = useState<Record<string, string>>(fields);
+  const [isCorrect, setCorrect] = useState('empty');
 
-  // const isCorrect: boolean = useMemo(() => { 
+  // const isCorrect: string = useMemo(() => { 
   useEffect(() => {
-    const newIsCorrect = Object.values(correctFields).find(it => it == false) == undefined;
+    let newIsCorrect = 'empty';
+    if(Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+      newIsCorrect = 'correct';
+    } else if(Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+
     console.log(correctFields);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState?.(newIsCorrect);
@@ -90,7 +132,7 @@ export function Expression({ expression, onChangeCorrectState }: { expression: A
     }
   ]
   return (
-    <div className="expression-wrapper">
+    <div className={`expression-wrapper ${isPassive ? 'expression-passive':''}`}>
       {expression.map((it, index) => {
         if (it.type == 'number') {
           return <ExpressionNumber value={Number(it.value)} />

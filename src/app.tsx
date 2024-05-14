@@ -1,34 +1,27 @@
 import React from "react";
-import './style.css';
+import { HashRouter, Routes, Route, Link } from 'react-router-dom';
+import { Header } from "./components/header/header";
 import { Expression } from './components/steps/expression/expression';
 import { parseExpression } from "./parsers";
+import { Level } from "./components/level/level";
+import { LevelProgress } from "./components/levelProgress/levelProgress";
+import { StepProgress } from "./components/stepProgress/stepProgress";
+import { LevelPage } from "./pages/levelPage/levelPage";
+import { NavigatePage } from "./pages/navigatePage/navigatePage";
+import './assets/fonts/fonts.css';
+import './style.css';
 
 export default function App() {
-  //const expression = 'a * b + c + 5 + $frac(1 + 2, 4) + d * e + f';
-  //const expression = 'a * b + c + 5 + $frac(1 + 2, 4 + v * x) + d * e + f';
-  // const expression = 'a@5 * $frac(b + c + 5 + $frac(1 + 2, 4 + v * x) + d * e + f , 345 + 7654 + x) + 4 + $frac(1 + 2 , 4 + k * m) + 5';
-  const expression = '$frac(a@6 * b@5 + c@3, 5) * $frac(d@7 * e@6 + f@1, 6)';
-  const parsedExpression = parseExpression(expression);
-  //console.log(parseExpression(expression));
+  
   return (
-    <>
-    <header>
-      <div className="logo">
-        <img src="" alt="" />
-        <p>Математический тренажер</p>
-      </div>
-    </header>
-    <div className="wrapper">
-      <div className="status-bar">
-        <div className="level-path">Тренажер / Арифметические действия с обыкновенными дробями. Умножение.</div>
-        <div className="level-progress"></div>
-        <div className="step"></div>
-        <button className="next-level"></button>
-      </div>
-      <div className="game-field">
-        <Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>
-      </div>
+    <div className="app">
+      <Header />
+      <HashRouter>
+        <Routes>
+          <Route path={"/level/:id"} element={<LevelPage />} />  
+          <Route path={"/"} element={<NavigatePage />}  />         
+        </Routes>
+      </HashRouter>
     </div>
-    </>
   )
 }

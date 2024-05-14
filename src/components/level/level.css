@@ -5,7 +5,7 @@
 }
 
 .equal{
-    padding: 20px;
+    /* padding: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,18 +14,21 @@
 }
 
 .hint-slot{
+    width: 100%;
     position: absolute;
+    left: 50%;
     display: flex;
     justify-content: center;
 }
 
 .hint-slot--up {
     top: 100px;
-    transform: translateY(-100%);
+    transform: translate(-50%,-100%);
 }
 
 .hint-slot--down {
     bottom: 100px;
+    transform: translate(-50%, 100%);
 }
 
 .hint{
@@ -52,4 +55,8 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.open-draft-button {
+    width: 150px;
 }

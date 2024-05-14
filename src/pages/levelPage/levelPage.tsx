@@ -5,8 +5,6 @@ import { StepProgress } from "../../components/stepProgress/stepProgress";
 import { parseExpression } from "../../parsers";
 import { Link, useParams } from "react-router-dom";
 import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
-import { DraftPopup } from "../../components/draftPopup/draftPopup";
-import { DraftSumm } from "../../components/steps/draft/draft";
 
 export function LevelPage() {
   const [stepCompleteCount, setStepCompleteCount] = useState(0);
@@ -55,7 +53,6 @@ export function LevelPage() {
   //console.log(parseExpression(expression));
   const levels = [
     <Level steps={levelsData[0].steps} onCompleteStep={(step) => {
-      console.log('qqqqqqqqqqqqqqqqqqqqqqqqq',step);
       setStepCompleteCount(step - 1);
     }} onCompleteLevel={() => {
       setIsCompleteLevel(true);

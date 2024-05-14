@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import './messagePopup.css';
 import avatarSuccess from '../../assets/icons/avatar-success.png';
 import avatarError from '../../assets/icons/avatar-error.png';

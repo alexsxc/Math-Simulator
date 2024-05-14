@@ -18,9 +18,9 @@ export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectS
     const [isOpenDraft, setIsOpenDraft] = useState(false);
     return (
         <div className="level">
-            <div>
+            {/* <div>
                 active step {activeStep - 1} / {steps.length - 1}
-            </div>
+            </div> */}
             <div className="full-expression">
                 {
                     parsedSteps.slice(0, activeStep + 1).map((it, index) => {
@@ -40,7 +40,6 @@ export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectS
                                     onChangeCorrectStepState(activeStep, isCorrect);
                                     if (isCorrect == 'correct') {
                                         const nextStep = Math.max(index + 1, activeStep);
-                                        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect);
                                         setActiveStep(last => Math.max(index + 1, last));
                                         onCompleteStep(nextStep);
                                         if (nextStep == steps.length) {

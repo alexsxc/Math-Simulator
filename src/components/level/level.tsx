@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import './level.css';
 import { parseExpression } from "../../parsers";
 import { Expression } from "../steps/expression/expression";
-import { DraftSumm } from "../steps/draft/draft";
+import { DraftDivide, DraftSumm } from "../steps/draft/draft";
 import { DraftPopup } from "../draftPopup/draftPopup";
 
 interface ILevelProps {
@@ -68,6 +68,7 @@ export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectS
             }}>
                 <DraftSumm inputValues={[1545, 25, 930]} />
                 <DraftSumm inputValues={[2547, 25, 920]} />
+                <DraftDivide didivend={14234} divisor={63} />
             </DraftPopup>}
         </div>
     )

@@ -75,3 +75,28 @@
     background: rgba(255, 0, 0, 0.4);
     border: 1px solid #FF4D20;
 }
+
+.expression-label-diagonal {
+    transform: rotate(45deg);
+    overflow: hidden;
+    width: 27px;
+    height: 27px;
+    border-radius: 3px;
+}
+
+.expression-field-diagonal {
+    transform: rotate(-45deg);
+    width: 100%;
+    height: 100%;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+    background-color: transparent;
+    border: none;
+}
+
+.expression-field-diagonal:focus {
+    outline: none;
+}

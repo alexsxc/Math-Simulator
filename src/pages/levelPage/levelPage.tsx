@@ -9,6 +9,7 @@ import LevelT4 from "../../components/levels/level-T4/level-T4";
 
 export function LevelPage() {
   const [stepCompleteCount, setStepCompleteCount] = useState(0);
+  const [totalStepsCount, setTotalStepsCount] = useState(1);
   const [isActiveHint, setIsActiveHint] = useState(false);
   const [isCompleteLevel, setIsCompleteLevel] = useState(false);
   // const levelsData: Array<{
@@ -79,8 +80,9 @@ export function LevelPage() {
     // }}></Level>
   ]
   const CurrentLevel = levels[Number(id)];
-  const currentLevelElement = <CurrentLevel onCompleteStep={(step) => {
+  const currentLevelElement = <CurrentLevel onCompleteStep={(step, totalSteps) => {
       setStepCompleteCount(step - 1);
+      setTotalStepsCount(totalSteps);
     }} onCompleteLevel={() => {
       setIsCompleteLevel(true);
     }} onChangeCorrectStepState={(step, state) => {
@@ -100,7 +102,7 @@ export function LevelPage() {
           </div>
           <div className="status-bar__progress progress">
             <LevelProgress completeCount={0} totalCount={15} />
-            <StepProgress completeCount={stepCompleteCount} totalCount={levelsStepTotal[Number(id)]} />
+            <StepProgress completeCount={stepCompleteCount} totalCount={totalStepsCount - 1} />
             <button className={`progress__button progress__button--hint ${isActiveHint ? "progress__button--hint-active" : ""}`}>
               <span>Подсказка</span>
             </button>

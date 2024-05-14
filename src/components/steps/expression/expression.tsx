@@ -13,11 +13,11 @@ export function ExpressionField({ name, answer, onChangeCorrectState }: IExpress
   const [value, setValue] = useState('');
   const [isCorrect, setCorrect] = useState('empty');
 
-   useEffect(() => {
+  useEffect(() => {
     let newIsCorrect = 'empty';
-    if(value != '' && answer === Number(value)) {
+    if (value != '' && answer === Number(value)) {
       newIsCorrect = 'correct';
-    } else if(value != '') {
+    } else if (value != '') {
       newIsCorrect = 'incorrect';
     }
     if (isCorrect != newIsCorrect) {
@@ -27,9 +27,38 @@ export function ExpressionField({ name, answer, onChangeCorrectState }: IExpress
   }, [value, answer]);
 
   return (
-    <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{'empty' : '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect"} [isCorrect]}`} />
+    <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`} />
   )
 };
+
+export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: IExpressionField) {
+  const [value, setValue] = useState('');
+  const [isCorrect, setCorrect] = useState('empty');
+  const uuid = useMemo(() => {
+    return '_' + Date.now() + name + Math.random();
+  }, []);
+
+  useEffect(() => {
+    let newIsCorrect = 'empty';
+    if (value != '' && answer === Number(value)) {
+      newIsCorrect = 'correct';
+    } else if (value != '') {
+      newIsCorrect = 'incorrect';
+    }
+    if (isCorrect != newIsCorrect) {
+      onChangeCorrectState(newIsCorrect);
+      setCorrect(newIsCorrect);
+    }
+  }, [value, answer]);
+
+  return (
+    <div className="expression-wrapper-diagonal">
+      <label htmlFor={uuid} className={`expression-label-diagonal expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}>
+        <input id={uuid} className="expression-field-diagonal" type="text" onChange={(evt) => setValue(evt.target.value)} />
+      </label>
+    </div>
+  )
+}
 
 interface IExpressionSign {
   sign: string
@@ -63,9 +92,9 @@ function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IE
 
   useEffect(() => {
     let newIsCorrect = 'empty';
-    if(Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+    if (Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
       newIsCorrect = 'correct';
-    } else if(Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+    } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
       newIsCorrect = 'incorrect';
     }
 
@@ -112,9 +141,9 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
   // const isCorrect: string = useMemo(() => { 
   useEffect(() => {
     let newIsCorrect = 'empty';
-    if(Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+    if (Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
       newIsCorrect = 'correct';
-    } else if(Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+    } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
       newIsCorrect = 'incorrect';
     }
 
@@ -132,7 +161,7 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
     }
   ]
   return (
-    <div className={`expression-wrapper ${isPassive ? 'expression-passive':''}`}>
+    <div className={`expression-wrapper ${isPassive ? 'expression-passive' : ''}`}>
       {expression.map((it, index) => {
         if (it.type == 'number') {
           return <ExpressionNumber value={Number(it.value)} />

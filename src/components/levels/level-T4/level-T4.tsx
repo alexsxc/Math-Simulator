@@ -1,21 +1,24 @@
 import React, { useEffect, useMemo, useState } from "react";
-import '../../level/level.css';
 import { parseExpression } from "../../../parsers";
 import { Expression } from "../../steps/expression/expression";
 import { DraftDivide, DraftSumm } from "../../steps/draft/draft";
 import { DraftPopup } from "../../draftPopup/draftPopup";
 import Step0 from "./step0";
 import Step1 from "./step1";
+import Step2 from "./step2";
+import Step3 from "./step3";
+import '../../level/level.css';
+import './level-T4.css';
 
 interface ILevelProps {
   // steps: Array<{ expression: string, messageTop?: string, messageBottom?: string }>;
-  onCompleteStep: (step: number) => void;
+  onCompleteStep: (step: number, totalSteps: number) => void;
   onCompleteLevel: () => void;
   onChangeCorrectStepState: (step: number, state: string) => void;
 }
 
 export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrectStepState }: ILevelProps) {
-  const steps = [Step0, Step1];
+  const steps = [Step0, Step1, Step2, Step3];
   //  const steps = [
   //     {
   //       expression: '3 $frac(2, 9) + 4 $frac(3, 7)',
@@ -53,22 +56,23 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       <div className="full-expression">
         {
           steps.map((Step, stepIndex) => {
-            return (
-              <>
-                <Step stepIndex={stepIndex} activeStep={activeStep}
+            return (              
+              <>              
+                {stepIndex <= activeStep &&  <Step stepIndex={stepIndex} activeStep={activeStep}
                   onCompleteStep={(index) => {
                     const nextStep = Math.max(index + 1, activeStep);
+                    
                     setActiveStep(last => Math.max(index + 1, last));
-                    onCompleteStep(nextStep);
+                    onCompleteStep(nextStep, steps.length);
                     if (nextStep == steps.length) {
                       onCompleteLevel();
                     }
                   }}
                   onChangeCorrectStepState={(index, isCorrect) => {
                     onChangeCorrectStepState(activeStep, isCorrect);
-                  }} />
-                  {stepIndex < activeStep && <div className="equal">=</div>}
-              </>
+                  }} />}
+                  {stepIndex < activeStep && <div className="equal">=</div>}                
+              </>              
             )
 
           })

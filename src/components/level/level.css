@@ -38,6 +38,10 @@
     border-radius: 12px;
 }
 
+.hint--inactive {
+    background-color: #A6A6A6;
+}
+
 .step{
     position: relative;
     height: 100%;

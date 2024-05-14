@@ -3,7 +3,6 @@ import { Expression } from "../../steps/expression/expression";
 import { parseExpression } from "../../../parsers";
 import { IStepProps } from "./IStepProps";
 
-
 export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCorrectStepState }: IStepProps) {
   const stepData = {
     expression: '3 $frac(2, 9) + 4 $frac(3, 7)',
@@ -25,14 +24,8 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
         }
 
       }} isPassive={true} />
-      {/* <div className="hint-slot hint-slot--down">
-                {stepData.messageBottom && <div className="hint hint-down">
-                    {steps[index].messageBottom}
-                </div>}
-            </div> */}
-
+      <div className="hint-slot hint-slot--down">
+      </div>
     </div>
-    {/* {index < activeStep && <div className="equal">=</div>} */}
   </>
-  // })
 }

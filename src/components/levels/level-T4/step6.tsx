@@ -3,15 +3,17 @@ import { Expression } from "../../steps/expression/expression";
 import { parseExpression } from "../../../parsers";
 import { IStepProps } from "./IStepProps";
 
-
 export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCorrectStepState }: IStepProps) {
   const stepData = {
-      expression: '$frac(a@29, 9) + $frac(b@31, 7)',
-      messageBottom: 'Находим ОЗ \n ОЗ = З*З'
+    expression:  'a@7 $frac(b@41, 63)',
+    messageTop: 'Сократить и (или) выделить \n целую часть'
   }
   return <>
     <div className="step">
       <div className="hint-slot hint-slot--up">
+      {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
+          {stepData.messageTop}
+        </div>}
       </div>
 
       <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
@@ -23,13 +25,8 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
 
       }} isPassive={false} />
       <div className="hint-slot hint-slot--down">
-        {stepData.messageBottom && <div className={`hint hint-down ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
-          {stepData.messageBottom}
-        </div>}
       </div>
 
     </div>
-    {/* {index < activeStep && <div className="equal">=</div>} */}
   </>
-  // })
 }

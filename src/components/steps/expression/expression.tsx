@@ -15,10 +15,10 @@ export function ExpressionField({ name, answer, onChangeCorrectState }: IExpress
 
   useEffect(() => {
     let newIsCorrect = 'empty';
-    if (value != '' && answer === Number(value)) {
+    if (value !== '' && answer === Number(value)) {
       newIsCorrect = 'correct';
-    } else if (value != '') {
-      newIsCorrect = 'incorrect';
+    } else if (value !== '') {
+
     }
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState(newIsCorrect);
@@ -27,7 +27,13 @@ export function ExpressionField({ name, answer, onChangeCorrectState }: IExpress
   }, [value, answer]);
 
   return (
-    <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`} />
+    <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}
+      onBlur={() => {
+        if (value !== '' && answer != Number(value) && isCorrect != 'incorrect') {
+          onChangeCorrectState('incorrect');
+          setCorrect('incorrect');
+        }
+      }} />
   )
 };
 
@@ -43,7 +49,7 @@ export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: 
     if (value != '' && answer === Number(value)) {
       newIsCorrect = 'correct';
     } else if (value != '') {
-      newIsCorrect = 'incorrect';
+      
     }
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState(newIsCorrect);
@@ -54,7 +60,13 @@ export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: 
   return (
     <div className="expression-wrapper-diagonal">
       <label htmlFor={uuid} className={`expression-label-diagonal expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}>
-        <input id={uuid} className="expression-field-diagonal" type="text" onChange={(evt) => setValue(evt.target.value)} />
+        <input id={uuid} className="expression-field-diagonal" type="text" onChange={(evt) => setValue(evt.target.value)}
+          onBlur={() => {
+            if (value !== '' && answer != Number(value) && isCorrect != 'incorrect') {
+              onChangeCorrectState('incorrect');
+              setCorrect('incorrect');
+            }
+          }} />
       </label>
     </div>
   )

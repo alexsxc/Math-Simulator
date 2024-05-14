@@ -34,7 +34,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
   return <>
     <div className="step">
       <div className="hint-slot hint-slot--up">
-        {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex + 1 ? "hint--inactive" : ""}`}>
+        {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
           {stepData.messageTop}
         </div>}
       </div>

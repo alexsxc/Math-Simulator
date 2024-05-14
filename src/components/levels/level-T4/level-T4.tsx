@@ -7,6 +7,9 @@ import Step0 from "./step0";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
+import Step4 from "./step4";
+import Step5 from "./step5";
+import Step6 from "./step6";
 import '../../level/level.css';
 import './level-T4.css';
 
@@ -18,7 +21,7 @@ interface ILevelProps {
 }
 
 export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrectStepState }: ILevelProps) {
-  const steps = [Step0, Step1, Step2, Step3];
+  const steps = [Step0, Step1, Step2, Step3, Step4, Step5, Step6];
   //  const steps = [
   //     {
   //       expression: '3 $frac(2, 9) + 4 $frac(3, 7)',
@@ -71,47 +74,11 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
                   onChangeCorrectStepState={(index, isCorrect) => {
                     onChangeCorrectStepState(activeStep, isCorrect);
                   }} />}
-                  {stepIndex < activeStep && <div className="equal">=</div>}                
+                  {(stepIndex < activeStep) && (stepIndex != steps.length - 1) && !(stepIndex == 1 && activeStep != 1) && <div className="equal">=</div>}                
               </>              
             )
 
           })
-
-          // parsedSteps.slice(0, activeStep + 1).map((it, index) => {
-          //     if (index > parsedSteps.length) {
-          //         return <div>completed</div>
-          //     }
-          //     return <>
-          //         <div className="step">
-          //             <div className="hint-slot hint-slot--up">
-          //                 {steps[index].messageTop && <div className="hint hint-up">
-          //                     {steps[index].messageTop}
-          //                 </div>}
-
-          //             </div>
-
-          //             <Expression expression={it} onChangeCorrectState={(isCorrect) => {
-          //                 onChangeCorrectStepState(activeStep, isCorrect);
-          //                 if (isCorrect == 'correct') {
-          //                     const nextStep = Math.max(index + 1, activeStep);
-          //                     setActiveStep(last => Math.max(index + 1, last));
-          //                     onCompleteStep(nextStep);
-          //                     if (nextStep == steps.length) {
-          //                         onCompleteLevel();
-          //                     }
-          //                 }
-
-          //             }} isPassive={index == 0} />
-          //             <div className="hint-slot hint-slot--down">
-          //                 {steps[index].messageBottom && <div className="hint hint-down">
-          //                     {steps[index].messageBottom}
-          //                 </div>}
-          //             </div>
-
-          //         </div>
-          //         {index < activeStep && <div className="equal">=</div>}
-          //     </>
-          // })
         }
       </div>
       <button type="button" className="open-draft-button" onClick={() => {

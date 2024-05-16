@@ -22,7 +22,7 @@
 }
 
 .hint-slot--up {
-    top: 100px;
+    top: 80px;
     transform: translate(-50%,-100%);
 }
 

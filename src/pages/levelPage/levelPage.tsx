@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Level } from "../../components/level/level";
 import { LevelProgress } from "../../components/levelProgress/levelProgress";
 import { StepProgress } from "../../components/stepProgress/stepProgress";
+import { Crib } from "../../components/crib/crib";
 import { parseExpression } from "../../parsers";
 import { Link, useParams } from "react-router-dom";
 import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
 import LevelT4 from "../../components/levels/level-T4/level-T4";
+import LevelT4_1 from "../../components/levels/level-T4-1/level-T4";
 import './levelPage.css';
 
 export function LevelPage() {
@@ -55,6 +57,7 @@ export function LevelPage() {
   const parsedExpression = parseExpression(expression);
   //console.log(parseExpression(expression));
   const levels = [
+    LevelT4_1,
     LevelT4
     // <Level steps={levelsData[0].steps} onCompleteStep={(step) => {
     //   setStepCompleteCount(step - 1);
@@ -113,6 +116,7 @@ export function LevelPage() {
           </div>
         </div>
         <div className="game-field">
+          <Crib />
           {currentLevelElement}
           {/*<Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>*/}
           {isCompleteLevel && <SuccessPopup />}

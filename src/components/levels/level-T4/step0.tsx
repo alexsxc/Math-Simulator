@@ -27,5 +27,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       <div className="hint-slot hint-slot--down">
       </div>
     </div>
+    {(stepIndex < activeStep) && <div className="equal">=</div>} 
   </>
 }

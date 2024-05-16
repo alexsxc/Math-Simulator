@@ -24,5 +24,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       </div>
 
     </div>
+    {(stepIndex < activeStep) && <div className="equal">=</div>} 
   </>
 }

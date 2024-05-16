@@ -116,7 +116,6 @@ export function LevelPage() {
           </div>
         </div>
         <div className="game-field">
-          <Crib />
           {currentLevelElement}
           {/*<Expression expression={parsedExpression} onChangeCorrectState={(isCorrect) => console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAA", isCorrect)}/>*/}
           {isCompleteLevel && <SuccessPopup />}

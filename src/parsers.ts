@@ -57,7 +57,7 @@ export function parseExpression(expression: string) {
                 funcIncludesCount--;
             }
         } else
-            if (/^-?[0-9]*$/.test(it)) {
+            if (/^-?[0-9_]*$/.test(it)) {
                 if (currentType == '') {
                     currentType = 'number';
                 } else if (currentType == 'number') {

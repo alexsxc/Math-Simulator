@@ -11,10 +11,10 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
   }
   return <>
     <div className="step">
-      <div className="hint-slot hint-slot--up">
+      <div className="hint-slot hint-slot--up hint-slot--step4"> 
       {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
           {stepData.messageTop}
-        </div>}
+        </div>}    
       </div>
 
       <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
@@ -29,5 +29,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       </div>
 
     </div>
+    {(stepIndex < activeStep) && <div className="equal">=</div>} 
   </>
 }

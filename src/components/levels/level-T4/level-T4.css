@@ -16,7 +16,6 @@
   background-image: url("../../../assets/icons/arrow-diagonal.svg");
   background-repeat: no-repeat;
   background-size: contain;
-  /* background-position: center; */
 }
 
 .arrow-diagonal--left {
@@ -40,17 +39,21 @@
 }
 
 .hint-slot--step0 {
-  width: 200%;
+  width: 100%;
   left: 0;
   transform: translate(0, -100%);
 }
 
-.hint-slot--step2 {
+.hint-slot--step3--bottom {
   width: 55%;
 }
 
-.hint-slot--step3 {
-  width: 140%;
+.hint-slot--step3-top {
+  width: 100%;
+}
+
+.hint-slot--step4 {
+  width: 100%;
 }
 
 .hint-slot--step6 {
@@ -73,11 +76,41 @@
   background-size: contain;
 }
 
-.hint-line--left {
+.hint-line--top-left {
   left: calc(50% + 25px);
 }
 
-.hint-line--right {
+.hint-line--top-right {
   right: calc(50% + 25px);
   transform: scale(-1, 1);
+}
+
+.hint-line--bottom-left {
+  left: calc(50% + -56px);
+  top: -98px;
+}
+
+.hint-line--bottom-right {
+  right: calc(50% + -56px);
+  top: -98px;
+  transform: scaleY(-1);
+}
+
+.open-draft-button {
+  position: absolute;
+  bottom: 0;
+  width: 103px;
+  padding: 16px 12px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #000;
+  background-color: #FFB84D;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.open-draft-button:disabled {
+  opacity: 0.5;
+  cursor: default;
 }

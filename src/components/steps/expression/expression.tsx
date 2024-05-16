@@ -88,7 +88,7 @@ interface IExpressionNumber {
 
 export function ExpressionNumber({ value }: IExpressionNumber) {
   return (
-    <div className="expression-number">{value}</div>
+    <div className="expression-number">{Number.isNaN(value) ? "" : value}</div>
   )
 };
 

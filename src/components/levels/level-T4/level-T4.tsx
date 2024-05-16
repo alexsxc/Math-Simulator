@@ -12,6 +12,7 @@ import Step5 from "./step5";
 import Step6 from "./step6";
 import '../../level/level.css';
 import './level-T4.css';
+import { Crib } from "../../crib/crib";
 
 interface ILevelProps {
   // steps: Array<{ expression: string, messageTop?: string, messageBottom?: string }>;
@@ -21,7 +22,8 @@ interface ILevelProps {
 }
 
 export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrectStepState }: ILevelProps) {
-  const steps = [Step0, Step1, Step2, Step3, Step4, Step5, Step6];
+  const [activeSubStep, setActiveSubStep] = useState(0);
+  const steps = [Step0, Step1, Step2, Step3, /*Step4,*/ Step5, Step6];
   //  const steps = [
   //     {
   //       expression: '3 $frac(2, 9) + 4 $frac(3, 7)',
@@ -53,6 +55,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
   const [isOpenDraft, setIsOpenDraft] = useState(false);
   return (
     <div className="level">
+        <Crib />
       {/* <div>
                 active step {activeStep - 1} / {steps.length - 1}
             </div> */}
@@ -64,36 +67,44 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
                 {stepIndex <= activeStep &&  <Step stepIndex={stepIndex} activeStep={activeStep}
                   onCompleteStep={(index) => {
                     const nextStep = Math.max(index + 1, activeStep);
+                    setActiveSubStep(0);
                     
                     setActiveStep(last => Math.max(index + 1, last));
                     onCompleteStep(nextStep, steps.length);
-                    if([4, 5, 6].includes(nextStep)) {
+                    if([4, 5].includes(nextStep)) {
                       setIsOpenDraft(true);
                     }
                     if (nextStep == steps.length) {
                       onCompleteLevel();
                     }
                   }}
+                  onCompleteSubStep={(index, subStepIndex) => {
+                    if(subStepIndex == 2 && index == 3) {
+                      setIsOpenDraft(true);
+                    }
+                    setActiveSubStep(subStepIndex);
+                    console.log('AAAAAAAAAAAAAAAAAA', subStepIndex, index);
+                  }}
                   onChangeCorrectStepState={(index, isCorrect) => {
                     onChangeCorrectStepState(activeStep, isCorrect);
                   }} />}
-                  {(stepIndex < activeStep) && (stepIndex != steps.length - 1) && !(stepIndex == 1 && activeStep != 2) && <div className="equal">=</div>}                
+                                
               </>              
             )
 
           })
         }
       </div>
-      <button type="button" className="open-draft-button" onClick={() => {
-        setIsOpenDraft(true);
-      }}>Черновик</button>
+      <button type="button" className="open-draft-button" onClick={() => {      
+          setIsOpenDraft(true);         
+      }} disabled={!((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2))}>Черновик</button>
       {<DraftPopup isOpen={isOpenDraft} onClose={() => {
         setIsOpenDraft(false)
       }}>
-        {activeStep >= 4 && <DraftMul inputValues={[29, 7]} />}
-        {activeStep >= 4 && <DraftMul inputValues={[31, 9]} />}
-        {activeStep >= 5 && <DraftSumm inputValues={[203, 279]} />}
-        {activeStep >= 6 && <DraftDivide didivend={482} divisor={63} />}
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[29, 7]} />}
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[31, 9]} />}
+        {activeStep >= 4 && <DraftSumm inputValues={[203, 279]} />}
+        {activeStep >= 5 && <DraftDivide didivend={482} divisor={63} />}
       </DraftPopup>}
     </div>
   )

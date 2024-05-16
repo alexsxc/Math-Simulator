@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { parseExpression } from "../../../parsers";
 import { Expression } from "../../steps/expression/expression";
-import { DraftDivide, DraftSumm } from "../../steps/draft/draft";
+import { DraftDivide, DraftMul, DraftSumm } from "../../steps/draft/draft";
 import { DraftPopup } from "../../draftPopup/draftPopup";
 import Step0 from "./step0";
 import Step1 from "./step1";
@@ -67,6 +67,9 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
                     
                     setActiveStep(last => Math.max(index + 1, last));
                     onCompleteStep(nextStep, steps.length);
+                    if([4, 5, 6].includes(nextStep)) {
+                      setIsOpenDraft(true);
+                    }
                     if (nextStep == steps.length) {
                       onCompleteLevel();
                     }
@@ -74,7 +77,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
                   onChangeCorrectStepState={(index, isCorrect) => {
                     onChangeCorrectStepState(activeStep, isCorrect);
                   }} />}
-                  {(stepIndex < activeStep) && (stepIndex != steps.length - 1) && !(stepIndex == 1 && activeStep != 1) && <div className="equal">=</div>}                
+                  {(stepIndex < activeStep) && (stepIndex != steps.length - 1) && !(stepIndex == 1 && activeStep != 2) && <div className="equal">=</div>}                
               </>              
             )
 
@@ -84,12 +87,13 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       <button type="button" className="open-draft-button" onClick={() => {
         setIsOpenDraft(true);
       }}>Черновик</button>
-      {isOpenDraft && <DraftPopup onClose={() => {
+      {<DraftPopup isOpen={isOpenDraft} onClose={() => {
         setIsOpenDraft(false)
       }}>
-        <DraftSumm inputValues={[1545, 25, 930]} />
-        <DraftSumm inputValues={[2547, 25, 920]} />
-        <DraftDivide didivend={14234} divisor={63} />
+        {activeStep >= 4 && <DraftMul inputValues={[29, 7]} />}
+        {activeStep >= 4 && <DraftMul inputValues={[31, 9]} />}
+        {activeStep >= 5 && <DraftSumm inputValues={[203, 279]} />}
+        {activeStep >= 6 && <DraftDivide didivend={482} divisor={63} />}
       </DraftPopup>}
     </div>
   )

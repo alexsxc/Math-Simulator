@@ -22,14 +22,12 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
         }
 
       }} isPassive={false} />
-      <div className="hint-slot hint-slot--down">
+      <div className="hint-slot hint-slot--down hint-slot--step2">
         {stepData.messageBottom && <div className={`hint hint-down ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
           {stepData.messageBottom}
         </div>}
       </div>
 
     </div>
-    {/* {index < activeStep && <div className="equal">=</div>} */}
   </>
-  // })
 }

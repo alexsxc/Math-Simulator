@@ -74,3 +74,34 @@ export function DraftDivide({ didivend, divisor }: IDraftEDivideProps) {
     </div>
   )
 }
+
+
+interface IDraftMul {
+  inputValues: Array<number>
+}
+
+export function DraftMul({ inputValues }: IDraftMul) {
+  return (
+    <div className="draft-summ">
+      <div className="draft-summ-arguments">
+      {inputValues.map((value, argumentIndex) => (
+        <>
+          <div className="draft-summ__argument">
+            {value.toString().split('').map(it => (
+              <ExpressionNumber value={Number(it)} />
+            ))}
+          </div>
+          {argumentIndex != inputValues.length - 1 && <div className="draft-summ__sign"><ExpressionSign sign={"x"} /></div>}
+        </>
+      )
+      )}
+      <div className="draft-summ__slash slash"></div>
+      </div>
+      <div className="draft-summ__argument">
+        {inputValues.reduce((acc, value) => acc * value, 1).toString().split('').map((it, index) => (
+          <ExpressionField name={index.toString()} answer={Number(it)} onChangeCorrectState={() => { }} />
+        ))}
+      </div>
+    </div>
+  )
+}

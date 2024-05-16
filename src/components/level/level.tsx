@@ -63,7 +63,7 @@ export function Level({ steps, onCompleteStep, onCompleteLevel, onChangeCorrectS
             <button type="button" className="open-draft-button" onClick={() => {
                 setIsOpenDraft(true);
             }}>Черновик</button>
-            {isOpenDraft && <DraftPopup onClose={() => {
+            {isOpenDraft && <DraftPopup isOpen={true} onClose={() => {
                 setIsOpenDraft(false)
             }}>
                 <DraftSumm inputValues={[1545, 25, 930]} />

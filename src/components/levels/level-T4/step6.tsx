@@ -10,7 +10,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
   }
   return <>
     <div className="step">
-      <div className="hint-slot hint-slot--up">
+      <div className="hint-slot hint-slot--up hint-slot--step6">
       {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
           {stepData.messageTop}
         </div>}
@@ -26,7 +26,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       }} isPassive={false} />
       <div className="hint-slot hint-slot--down">
       </div>
-
     </div>
   </>
 }

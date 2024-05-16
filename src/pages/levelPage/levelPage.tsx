@@ -6,6 +6,7 @@ import { parseExpression } from "../../parsers";
 import { Link, useParams } from "react-router-dom";
 import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
 import LevelT4 from "../../components/levels/level-T4/level-T4";
+import './levelPage.css';
 
 export function LevelPage() {
   const [stepCompleteCount, setStepCompleteCount] = useState(0);

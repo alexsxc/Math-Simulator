@@ -9,7 +9,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       expression: '$frac(a@3 * b@9 + c@2, 9) + $frac(d@4 * e@7 + f@3, 7)',
   }
   return <>
-    {activeStep == stepIndex && <div className="step">
+    {activeStep <= stepIndex + 1 && <div className="step">
       <div className="hint-slot hint-slot--up">
       </div>
 
@@ -19,7 +19,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
         if (isCorrect == 'correct' && activeStep == stepIndex) {
           onCompleteStep(stepIndex);
         }
-
       }} isPassive={false} />
       <div className="hint-slot hint-slot--down">
       </div>

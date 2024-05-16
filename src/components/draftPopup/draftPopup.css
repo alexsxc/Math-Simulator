@@ -8,13 +8,33 @@
 }
 
 .draft-popup {
+  width: 100%;
   position: absolute;
-    bottom: 0;
-    background-color: #fff;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  transition-duration: 300ms;
+  transform: translateY(calc(100% + 26px));
+}
+
+.draft-popup--open {
+  transform: translateY(0);
+  z-index: 1000;
 }
 
 .draft-popup__wrapper {
-  padding: 20px;
+  padding: 28px;
   display: flex;
   gap: 50px;
+}
+
+.draft-popup-close {
+  width: 32px;
+  height: 32px;
+  background-image: url("../../assets/icons/close.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  background-color: transparent;
 }

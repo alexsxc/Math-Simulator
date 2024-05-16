@@ -33,7 +33,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
   }
   return <>
     <div className="step">
-      <div className="hint-slot hint-slot--up">
+      <div className="hint-slot hint-slot--up hint-slot--step3">
         {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
           {stepData.messageTop}
         </div>}
@@ -54,7 +54,5 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       </div>
 
     </div>
-    {/* {index < activeStep && <div className="equal">=</div>} */}
   </>
-  // })
 }

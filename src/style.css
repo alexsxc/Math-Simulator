@@ -58,6 +58,7 @@ button {
   margin: 0 auto;
   padding: 40px 0;
   padding-bottom: 36px;
+  overflow: hidden;
 }
 
 .status-bar {
@@ -135,4 +136,5 @@ button {
   border-radius: 40px;
   margin-top: 16px;
   padding: 26px 44px;
+  overflow: hidden;
 }

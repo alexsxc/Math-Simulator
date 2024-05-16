@@ -37,9 +37,17 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
         {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
           {stepData.messageTop}
         </div>}
+        <div className="hint-lines">
+          <div className="hint-line hint-line--left"></div>
+          <div className="hint-line hint-line--right"></div>
+        </div>
       </div>
 
       <div className="step3-expression-wrapper">
+        <div className="arrows-diagonal">
+          <div className="arrow-diagonal arrow-diagonal--left"></div>
+          <div className="arrow-diagonal arrow-diagonal--right"></div>
+        </div>
         <div className="step3-diagonal-fields">
           <ExpressionFieldDiagonal name={'diagonal1'} answer={7} onChangeCorrectState={(isCorrect) => {
             setCorrectFields(last => ({ ...last, diagonal1: isCorrect }))

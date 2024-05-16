@@ -11,7 +11,7 @@ import Step4 from "./step4";
 import Step5 from "./step5";
 import Step6 from "./step6";
 import '../../level/level.css';
-import './level-T4.css';
+// import './level-T4.css';
 
 interface ILevelProps {
   // steps: Array<{ expression: string, messageTop?: string, messageBottom?: string }>;

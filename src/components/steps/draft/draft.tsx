@@ -75,7 +75,6 @@ export function DraftDivide({ didivend, divisor }: IDraftEDivideProps) {
   )
 }
 
-
 interface IDraftMul {
   inputValues: Array<number>
 }

@@ -16,7 +16,7 @@ export function DraftPopup({isOpen, children, onClose}: IDraftPopupProps) {
       <div className="draft-popup__wrapper">
         {...Array.isArray(children) ? children : [children]}
       </div>
-      <button type="button" className="draft-popup-close" onClick={onClose}>X</button>
+      <button type="button" className="draft-popup-close" onClick={onClose}></button>
     </div>
     </>
   )

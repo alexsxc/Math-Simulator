@@ -182,3 +182,7 @@
   font-weight: bold;
   opacity: 0.6;
 }
+
+.full-expression-wrapper {
+  padding-top: 40px;
+}

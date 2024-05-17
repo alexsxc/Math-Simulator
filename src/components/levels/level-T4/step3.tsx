@@ -50,12 +50,13 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
   }
   const stepData3 = {
     expression: '$frac(a@203, 63) + $frac(b@279, 63)',
+    messageTop: 'Складываем'
   }
 
   return <>
     <div className="step">
       <div className="hint-slot hint-slot--up hint-slot--step3-top">
-        {subStep > 0 && stepData1.messageTop && <div className={`hint hint-up ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
+        {subStep > 0 && stepData1.messageTop && <div className={`hint hint-up ${(activeStep > stepIndex || subStep > 2) ? "hint--inactive" : ""}`}>
           {stepData1.messageTop}
         </div>}
         {subStep > 0 && stepData1.messageTop && <div className="hint-lines">
@@ -80,7 +81,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
         <Expression expression={parseExpression(stepData1.expression)} onChangeCorrectState={(isCorrect) => { }} isPassive={false} />
       </div>
       <div className="hint-slot hint-slot--down hint-slot--step3-bottom">
-        {stepData1.messageBottom && <div className={`hint hint-down ${activeStep > stepIndex ? "hint--inactive" : ""}`}>
+        {stepData1.messageBottom && <div className={`hint hint-down ${(activeStep > stepIndex || subStep > 0) ? "hint--inactive" : ""}`}>
           {stepData1.messageBottom}
         </div>}
         {stepData1.messageBottom && <div className="hint-lines">
@@ -109,7 +110,14 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
     {subStep == 2 &&
       <>
         <div className="step">
-          <div className="hint-slot hint-slot--up">        
+          <div className="hint-slot hint-slot--up"> 
+        {stepData3.messageTop && activeStep >= stepIndex + 1 && <div className={`hint hint-up ${activeStep > stepIndex + 1 ? "hint--inactive" : ""}`}>
+        {stepData3.messageTop}
+      </div>} 
+      {stepData3.messageTop && activeStep >= stepIndex + 1 && <div className="hint-lines">
+          <div className="hint-line hint-line--top-left"></div>
+          <div className="hint-line hint-line--top-right"></div>
+        </div>}        
           </div>
           <div className="step3-expression-wrapper">
             <Expression expression={parseExpression(stepData3.expression)} onChangeCorrectState={(isCorrect) => {

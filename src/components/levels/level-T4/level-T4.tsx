@@ -83,15 +83,12 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
                       setIsOpenDraft(true);
                     }
                     setActiveSubStep(subStepIndex);
-                    console.log('AAAAAAAAAAAAAAAAAA', subStepIndex, index);
                   }}
                   onChangeCorrectStepState={(index, isCorrect) => {
                     onChangeCorrectStepState(activeStep, isCorrect);
-                  }} />}
-                                
+                  }} />}                                
               </>              
             )
-
           })
         }
       </div>

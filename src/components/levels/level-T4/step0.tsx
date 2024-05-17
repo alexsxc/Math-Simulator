@@ -15,18 +15,35 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
           {stepData.messageTop}
         </div>}
       </div>
+      <div className="step0-expression-wrapper">
+        {activeStep <= stepIndex + 1 && <div className="step0-arrows-wrapper">
+          <div className="arrow-element arrow-element--one">
+            <div className="step0-arrow step0-arrow--one"></div>
+            <div className="step0-arrow-text step0-arrow-text--one">Числитель (Ч)</div>
+          </div>
+          <div className="arrow-element arrow-element--two">
+            <div className="step0-arrow step0-arrow--two"></div>
+            <div className="step0-arrow-text step0-arrow-text--two">Целое Число (ЦЧ)</div>
+          </div>
+          <div className="arrow-element arrow-element--three">
+            <div className="step0-arrow step0-arrow--three"></div>
+            <div className="step0-arrow-text step0-arrow-text--three">Знаменатель (З)</div>
+          </div>
 
-      <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
-        console.log(stepIndex, activeStep);
-        onChangeCorrectStepState(stepIndex, isCorrect);
-        if (isCorrect == 'correct' && activeStep == stepIndex + 1) {
-          onCompleteStep(stepIndex);
-        }
+        </div>}
+        <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
+          console.log(stepIndex, activeStep);
+          onChangeCorrectStepState(stepIndex, isCorrect);
+          if (isCorrect == 'correct' && activeStep == stepIndex + 1) {
+            onCompleteStep(stepIndex);
+          }
+        }} isPassive={true} />
+      </div>
 
-      }} isPassive={true} />
+
       <div className="hint-slot hint-slot--down">
       </div>
     </div>
-    {(stepIndex < activeStep) && <div className="equal">=</div>} 
+    {(stepIndex < activeStep) && <div className="equal">=</div>}
   </>
 }

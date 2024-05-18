@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import './expression.css';
 import './expressionPassive.css';
-import { parseExpression } from '../../../parsers';
 
 interface IExpressionField {
   name: string,
@@ -110,7 +109,6 @@ function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IE
       newIsCorrect = 'incorrect';
     }
 
-    console.log(correctFields);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState?.(newIsCorrect);
       setCorrect(newIsCorrect);
@@ -159,7 +157,6 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
       newIsCorrect = 'incorrect';
     }
 
-    console.log(correctFields);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState?.(newIsCorrect);
       setCorrect(newIsCorrect);
@@ -176,13 +173,13 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
     <div className={`expression-wrapper ${isPassive ? 'expression-passive' : ''}`}>
       {expression.map((it, index) => {
         if (it.type == 'number') {
-          return <ExpressionNumber value={Number(it.value)} />
+          return <ExpressionNumber key={index} value={Number(it.value)} />
         } else if (it.type == 'sign') {
-          return <ExpressionSign sign={it.value} />
+          return <ExpressionSign key={index} sign={it.value} />
         } else if (it.type == 'field') {
-          return <ExpressionField name={it.value.name} answer={it.value.answer} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [it.value.name]: isCorrect }))} />
+          return <ExpressionField key={index} name={it.value.name} answer={it.value.answer} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [it.value.name]: isCorrect }))} />
         } else if (it.type == 'frac') {
-          return <ExpressionFraction numerator={it.value[0]} denominator={it.value[1]} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }))} />
+          return <ExpressionFraction key={index} numerator={it.value[0]} denominator={it.value[1]} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }))} />
         } else {
           throw new Error('Invalid expression!')
         }

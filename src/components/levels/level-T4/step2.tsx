@@ -16,7 +16,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       </div>
 
       <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
-        console.log(stepIndex, activeStep);
         onChangeCorrectStepState(stepIndex, isCorrect);
         if (isCorrect == 'correct' && activeStep == stepIndex) {
           onCompleteStep(stepIndex);
@@ -27,9 +26,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       </div>
     </div>
     {(stepIndex < activeStep) && <div className="equal">=</div>} 
-    </>
-    
-     }
-   
+    </>    
+     }   
   </>
 }

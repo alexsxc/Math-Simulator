@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React from "react";
 import { Expression } from "../../steps/expression/expression";
 import { parseExpression } from "../../../parsers";
 import { IStepProps } from "./IStepProps";
@@ -32,7 +32,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
 
         </div>}
         <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
-          console.log(stepIndex, activeStep);
           onChangeCorrectStepState(stepIndex, isCorrect);
           if (isCorrect == 'correct' && activeStep == stepIndex + 1) {
             onCompleteStep(stepIndex);

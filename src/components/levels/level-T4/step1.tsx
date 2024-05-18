@@ -3,7 +3,6 @@ import { Expression } from "../../steps/expression/expression";
 import { parseExpression } from "../../../parsers";
 import { IStepProps } from "./IStepProps";
 
-
 export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCorrectStepState }: IStepProps) {
   const stepData = {
       expression: '$frac(a@3 * b@9 + c@2, 9) + $frac(d@4 * e@7 + f@3, 7)',
@@ -16,7 +15,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
       </div>
 
       <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
-        console.log(stepIndex, activeStep);
         onChangeCorrectStepState(stepIndex, isCorrect);
         if (isCorrect == 'correct' && activeStep == stepIndex) {
           onCompleteStep(stepIndex);
@@ -28,7 +26,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
     </div>
     {(stepIndex < activeStep) && <div className="equal">=</div>} 
     </>
-    }
-   
+    }   
   </>
 }

@@ -30,7 +30,6 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
         onCompleteSubStep(stepIndex, nextSubStep);
       }
     }
-    console.log(correctFields);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectStepState?.(stepIndex, newIsCorrect);
       setCorrect(newIsCorrect);

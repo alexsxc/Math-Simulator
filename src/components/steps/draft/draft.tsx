@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ExpressionField, ExpressionSign, ExpressionNumber } from "../expression/expression";
 import './draft.css';
 
@@ -76,10 +76,33 @@ export function DraftDivide({ didivend, divisor }: IDraftEDivideProps) {
 }
 
 interface IDraftMul {
-  inputValues: Array<number>
+  inputValues: Array<number>,
+  onChangeCorrectState: (isCorrect: string, draftValue: number) => void
 }
 
-export function DraftMul({ inputValues }: IDraftMul) {
+export function DraftMul({ inputValues, onChangeCorrectState }: IDraftMul) {
+  const mulResult = inputValues.reduce((acc, value) => acc * value, 1).toString().split('');
+  const fields = mulResult.map(it => 'empty');
+  const [correctFields, setCorrectFields] = useState<Array<string>>(fields);
+  const [isCorrect, setCorrect] = useState('empty');
+  const[fieldValues, setFieldValues] = useState<Array<string>>([]);
+
+  useEffect(() => {
+    let newIsCorrect = 'empty';
+    if (Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+      newIsCorrect = 'correct';
+    } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+console.log(fieldValues, correctFields, newIsCorrect);
+    const resultValue = Number([...fieldValues].join(''));
+    console.log(resultValue);
+    if (isCorrect != newIsCorrect) {
+      onChangeCorrectState?.(newIsCorrect, resultValue);
+      setCorrect(newIsCorrect);
+    }
+  }, [correctFields, fieldValues]);
+
   return (
     <div className="draft-summ">
       <div className="draft-summ-arguments">
@@ -97,8 +120,11 @@ export function DraftMul({ inputValues }: IDraftMul) {
       <div className="draft-summ__slash slash"></div>
       </div>
       <div className="draft-summ__argument">
-        {inputValues.reduce((acc, value) => acc * value, 1).toString().split('').map((it, index) => (
-          <ExpressionField key={index} name={index.toString()} answer={Number(it)} onChangeCorrectState={() => { }} />
+        {mulResult.map((it, index) => (
+          <ExpressionField key={index} name={index.toString()} answer={Number(it)} onChangeCorrectState={(isCorrect, value) => { 
+            setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }));
+            setFieldValues(last => ([ ...last, value]));
+          }} />
         ))}
       </div>
     </div>

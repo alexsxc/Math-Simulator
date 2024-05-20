@@ -5,12 +5,17 @@ import './expressionPassive.css';
 interface IExpressionField {
   name: string,
   answer: number,
-  onChangeCorrectState: (isCorrect: string) => void
+  onChangeCorrectState: (isCorrect: string, value: string) => void,
+  initialValue?: number
 }
 
-export function ExpressionField({ name, answer, onChangeCorrectState }: IExpressionField) {
+export function ExpressionField({ name, answer, onChangeCorrectState, initialValue }: IExpressionField) {
   const [value, setValue] = useState('');
   const [isCorrect, setCorrect] = useState('empty');
+
+  useEffect(() => {
+    setValue(initialValue == undefined ? '' : initialValue.toString());
+  }, [initialValue]);
 
   useEffect(() => {
     let newIsCorrect = 'empty';
@@ -20,16 +25,16 @@ export function ExpressionField({ name, answer, onChangeCorrectState }: IExpress
 
     }
     if (isCorrect != newIsCorrect) {
-      onChangeCorrectState(newIsCorrect);
+      onChangeCorrectState(newIsCorrect, value);
       setCorrect(newIsCorrect);
     }
   }, [value, answer]);
 
   return (
-    <input type="text" onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}
+    <input type="text" value={value} onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}
       onBlur={() => {
         if (value !== '' && answer != Number(value) && isCorrect != 'incorrect') {
-          onChangeCorrectState('incorrect');
+          onChangeCorrectState('incorrect', value);
           setCorrect('incorrect');
         }
       }} />
@@ -51,7 +56,7 @@ export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: 
       
     }
     if (isCorrect != newIsCorrect) {
-      onChangeCorrectState(newIsCorrect);
+      onChangeCorrectState(newIsCorrect, value);
       setCorrect(newIsCorrect);
     }
   }, [value, answer]);
@@ -62,7 +67,7 @@ export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: 
         <input id={uuid} className="expression-field-diagonal" type="text" onChange={(evt) => setValue(evt.target.value)}
           onBlur={() => {
             if (value !== '' && answer != Number(value) && isCorrect != 'incorrect') {
-              onChangeCorrectState('incorrect');
+              onChangeCorrectState('incorrect', value);
               setCorrect('incorrect');
             }
           }} />
@@ -177,7 +182,7 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
         } else if (it.type == 'sign') {
           return <ExpressionSign key={index} sign={it.value} />
         } else if (it.type == 'field') {
-          return <ExpressionField key={index} name={it.value.name} answer={it.value.answer} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [it.value.name]: isCorrect }))} />
+          return <ExpressionField key={index} name={it.value.name} answer={it.value.answer} initialValue={it.value.initialValue} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [it.value.name]: isCorrect }))} />
         } else if (it.type == 'frac') {
           return <ExpressionFraction key={index} numerator={it.value[0]} denominator={it.value[1]} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }))} />
         } else {

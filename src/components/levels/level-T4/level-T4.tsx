@@ -20,9 +20,10 @@ interface ILevelProps {
 export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrectStepState }: ILevelProps) {
   const [activeSubStep, setActiveSubStep] = useState(0);
   const steps = [Step0, Step1, Step2, Step3, Step5, Step6];
-
   const [activeStep, setActiveStep] = useState(1);
   const [isOpenDraft, setIsOpenDraft] = useState(false);
+  const [draftState, setDraftState] = useState<any>({});
+
   return (
     <div className="level">
       <Crib />
@@ -31,7 +32,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
           {
             steps.map((Step, stepIndex) => {
               return (
-                stepIndex <= activeStep && <Step key={stepIndex} stepIndex={stepIndex} activeStep={activeStep}
+                stepIndex <= activeStep && <Step key={stepIndex} draftState={draftState} stepIndex={stepIndex} activeStep={activeStep}
                   onCompleteStep={(index) => {
                     const nextStep = Math.max(index + 1, activeStep);
                     setActiveSubStep(0);
@@ -65,8 +66,13 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       {<DraftPopup isOpen={isOpenDraft} onClose={() => {
         setIsOpenDraft(false)
       }}>
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[29, 7]} />}
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[31, 9]} />}
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[29, 7]} onChangeCorrectState={(isCorrect, draftValue) => { 
+         console.log(isCorrect);
+         (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step3_1: draftValue}))
+        }}/>}
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[31, 9]} onChangeCorrectState={(isCorrect, draftValue) => { 
+          (isCorrect == 'correct') && setDraftState((last: any ) => ({...last, step3_2: draftValue}))
+        }}/>}
         {activeStep >= 4 && <DraftSumm inputValues={[203, 279]} />}
         {activeStep >= 5 && <DraftDivide didivend={482} divisor={63} />}
       </DraftPopup>}

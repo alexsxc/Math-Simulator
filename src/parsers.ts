@@ -30,6 +30,34 @@ function parseFunc(funcExpression: string) {
     }
 }
 
+export function findField(obj: any, name: string): {type: string, value: {name: string,  initialValue: number, answer: number}} {
+    console.log(obj);
+   if (obj && typeof obj == 'object'){
+       if (obj.type == 'field' && obj.value.name == name) {
+           return obj;
+       } else {
+           if (Array.isArray(obj)){
+               for(let i = 0; i< obj.length; i++){
+                   let it = obj[i];
+                   const found = findField(it, name)
+                   if (found){
+                       return found;
+                   };
+               }
+           } else {
+               const values = Object.values(obj);
+               for(let i = 0; i< values.length; i++){
+                   let it = values[i];
+                const found = findField(it, name)
+                   if (found){
+                       return found;
+                   };
+               }
+           }
+       }
+   }
+}
+
 export function parseExpression(expression: string) {
     let currentLine: string = '';
     let currentType: string = '';

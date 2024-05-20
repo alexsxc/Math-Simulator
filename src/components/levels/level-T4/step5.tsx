@@ -1,18 +1,32 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Expression } from "../../steps/expression/expression";
-import { parseExpression } from "../../../parsers";
+import { findField, parseExpression } from "../../../parsers";
 import { IStepProps } from "./IStepProps";
 
-export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCorrectStepState }: IStepProps) {
+export default function Step({ stepIndex, activeStep, draftState, onCompleteStep, onChangeCorrectStepState }: IStepProps) {
   const stepData = {
     expression: '$frac(a@482, 63)'
   }
+  const [expression, setExpression] = useState(parseExpression(stepData.expression));
+
+  useEffect(() => {
+    console.log(draftState);
+    if(draftState.step5 != undefined) {
+      setExpression(last => {
+        const nextState = JSON.parse(JSON.stringify(last));
+        const fieldData = findField(nextState, 'a');
+        fieldData.value.initialValue = draftState.step5;
+        return nextState;
+      })
+    } 
+  }, [draftState]);
+
   return <>
     <div className="step">
       <div className="hint-slot hint-slot--up">
       </div>
 
-      <Expression expression={parseExpression(stepData.expression)} onChangeCorrectState={(isCorrect) => {
+      <Expression expression={expression} onChangeCorrectState={(isCorrect) => {
         onChangeCorrectStepState(stepIndex, isCorrect);
         if (isCorrect == 'correct' && activeStep == stepIndex) {
           onCompleteStep(stepIndex);

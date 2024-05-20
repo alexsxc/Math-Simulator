@@ -66,15 +66,29 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       {<DraftPopup isOpen={isOpenDraft} onClose={() => {
         setIsOpenDraft(false)
       }}>
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[29, 7]} onChangeCorrectState={(isCorrect, draftValue) => { 
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[29, 7]} 
+        onChangeCorrectState={(isCorrect, draftValue) => { 
          console.log(isCorrect);
          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step3_1: draftValue}))
         }}/>}
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[31, 9]} onChangeCorrectState={(isCorrect, draftValue) => { 
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[31, 9]} 
+        onChangeCorrectState={(isCorrect, draftValue) => { 
           (isCorrect == 'correct') && setDraftState((last: any ) => ({...last, step3_2: draftValue}))
         }}/>}
-        {activeStep >= 4 && <DraftSumm inputValues={[203, 279]} />}
-        {activeStep >= 5 && <DraftDivide didivend={482} divisor={63} />}
+        {activeStep >= 4 && <DraftSumm inputValues={[203, 279]} 
+         onChangeCorrectState={(isCorrect, draftValue) => { 
+          console.log(isCorrect);
+          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step5: draftValue}))
+         }}/>}
+        {activeStep >= 5 && <DraftDivide didivend={482} divisor={63} 
+         onChangeCorrectState={(isCorrect, draftValue) => { 
+          console.log(isCorrect);
+          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_1: draftValue}))
+         }}
+         onChangeCorrectModState={(isCorrect, draftValue) => { 
+          console.log(isCorrect);
+          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}))
+         }}/>}
       </DraftPopup>}
     </div>
   )

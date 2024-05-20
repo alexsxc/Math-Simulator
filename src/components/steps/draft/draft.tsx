@@ -3,10 +3,32 @@ import { ExpressionField, ExpressionSign, ExpressionNumber } from "../expression
 import './draft.css';
 
 interface IDraftSumm {
-  inputValues: Array<number>
+  inputValues: Array<number>,
+  onChangeCorrectState: (isCorrect: string, draftValue: number) => void
 }
 
-export function DraftSumm({ inputValues }: IDraftSumm) {
+export function DraftSumm({ inputValues, onChangeCorrectState }: IDraftSumm) {
+  const summResult = inputValues.reduce((acc, value) => acc + value, 0).toString().split('');
+  const fields = summResult.map(it => 'empty');
+  const [correctFields, setCorrectFields] = useState<Array<string>>(fields);
+  const [isCorrect, setCorrect] = useState('empty');
+  const[fieldValues, setFieldValues] = useState<Array<string>>([]);
+
+  useEffect(() => {
+    let newIsCorrect = 'empty';
+    if (Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+      newIsCorrect = 'correct';
+    } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+console.log(fieldValues, correctFields, newIsCorrect);
+    const resultValue = Number([...fieldValues].join(''));
+    console.log(resultValue);
+    if (isCorrect != newIsCorrect) {
+      onChangeCorrectState?.(newIsCorrect, resultValue);
+      setCorrect(newIsCorrect);
+    }
+  }, [correctFields, fieldValues]);
   return (
     <div className="draft-summ">
       {inputValues.map((value, argumentIndex) => (
@@ -22,8 +44,16 @@ export function DraftSumm({ inputValues }: IDraftSumm) {
       )}
       <div className="draft-summ__slash slash"></div>
       <div className="draft-summ__argument">
-        {inputValues.reduce((acc, value) => acc + value, 0).toString().split('').map((it, index) => (
-          <ExpressionField key={index} name={index.toString()} answer={Number(it)} onChangeCorrectState={() => { }} />
+        {summResult.map((it, index) => (
+          <ExpressionField key={index} name={index.toString()} answer={Number(it)} 
+          onChangeCorrectState={(isCorrect, value) => { 
+            setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }));
+            setFieldValues(last => {
+              const next = [...last];
+              next[index] = value;
+              return next;
+            });
+          }} />
         ))}
       </div>
     </div>
@@ -32,10 +62,56 @@ export function DraftSumm({ inputValues }: IDraftSumm) {
 
 interface IDraftEDivideProps {
   didivend: number,
-  divisor: number
+  divisor: number,
+  onChangeCorrectState: (isCorrect: string, draftValue: number) => void,
+  onChangeCorrectModState: (isCorrect: string, draftValue: number) => void,
 }
 
-export function DraftDivide({ didivend, divisor }: IDraftEDivideProps) {
+export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeCorrectModState }: IDraftEDivideProps) {
+  const divResult = Math.floor(didivend / divisor).toString().split('');
+  const modResult = Math.floor(didivend % divisor).toString().split('');
+  const fields = divResult.map(it => 'empty');
+  const [correctFields, setCorrectFields] = useState<Array<string>>(fields);
+  const [isCorrect, setCorrect] = useState('empty');
+  const [fieldValues, setFieldValues] = useState<Array<string>>([]);
+
+  const fieldsMod = divResult.map(it => 'empty');
+  const [correctModFields, setCorrectModFields] = useState<Array<string>>(fieldsMod);
+  const [isCorrectMod, setCorrectMod] = useState('empty');
+  const [fieldModValues, setFieldModValues] = useState<Array<string>>([]);
+
+  useEffect(() => {
+    let newIsCorrect = 'empty';
+    if (Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+      newIsCorrect = 'correct';
+    } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+
+    const resultValue = Number([...fieldValues].join(''));
+    console.log(resultValue);
+    if (isCorrect != newIsCorrect) {
+      onChangeCorrectState?.(newIsCorrect, resultValue);
+      setCorrect(newIsCorrect);
+    }
+  }, [correctFields, fieldValues]);
+
+  useEffect(() => {
+    let newIsCorrect = 'empty';
+    if (Object.values(correctModFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+      newIsCorrect = 'correct';
+    } else if (Object.values(correctModFields).find(it => it == 'incorrect') != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+
+    const resultValue = Number([...fieldModValues].join(''));
+
+    if (isCorrectMod != newIsCorrect) {
+      onChangeCorrectModState?.(newIsCorrect, resultValue);
+      setCorrectMod(newIsCorrect);
+    }
+  }, [correctModFields, fieldModValues]);
+
   return (
     <div className="draft-divide-wrapper">
       <div className="draft-operation draft-divide">
@@ -52,8 +128,16 @@ export function DraftDivide({ didivend, divisor }: IDraftEDivideProps) {
         )}
         <div className="draft-operation__slash slash"></div>
         <div className="draft-operation__argument">
-          {Math.floor(didivend % divisor).toString().split('').map((it, index) => (
-            <ExpressionField key={index} name={index.toString()} answer={Number(it)} onChangeCorrectState={() => { }} />
+          {modResult.map((it, index) => (
+            <ExpressionField key={index} name={index.toString()} answer={Number(it)}  
+            onChangeCorrectState={(isCorrect, value) => { 
+              setCorrectModFields(last => ({ ...last, [index.toString()]: isCorrect }));
+              setFieldModValues(last => {
+                const next = [...last];
+                next[index] = value;
+                return next;
+              });
+            }} />
           ))}
         </div>
       </div>
@@ -66,8 +150,16 @@ export function DraftDivide({ didivend, divisor }: IDraftEDivideProps) {
         </div>
         <div className="draft-operation__slash slash"></div>
         <div className="draft-operation__argument">
-          {Math.floor(didivend / divisor).toString().split('').map((it, index) => (
-            <ExpressionField key={index} name={index.toString()} answer={Number(it)} onChangeCorrectState={() => { }} />
+          {divResult.map((it, index) => (
+            <ExpressionField key={index} name={index.toString()} answer={Number(it)} 
+            onChangeCorrectState={(isCorrect, value) => { 
+              setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }));
+              setFieldValues(last => {
+                const next = [...last];
+                next[index] = value;
+                return next;
+              });
+            }} />
           ))}
         </div>
       </div>
@@ -121,9 +213,14 @@ console.log(fieldValues, correctFields, newIsCorrect);
       </div>
       <div className="draft-summ__argument">
         {mulResult.map((it, index) => (
-          <ExpressionField key={index} name={index.toString()} answer={Number(it)} onChangeCorrectState={(isCorrect, value) => { 
+          <ExpressionField key={index} name={index.toString()} answer={Number(it)} 
+          onChangeCorrectState={(isCorrect, value) => { 
             setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }));
-            setFieldValues(last => ([ ...last, value]));
+            setFieldValues(last => {
+              const next = [...last];
+              next[index] = value;
+              return next;
+            });
           }} />
         ))}
       </div>

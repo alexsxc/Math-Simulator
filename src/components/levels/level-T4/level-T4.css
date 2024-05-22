@@ -1,3 +1,8 @@
+.level__buttons {
+  display: flex;
+  gap: 30px;
+}
+
 .step3-expression-wrapper {
   position: relative;
 }

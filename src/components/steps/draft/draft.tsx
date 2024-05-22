@@ -12,7 +12,7 @@ export function DraftSumm({ inputValues, onChangeCorrectState }: IDraftSumm) {
   const fields = summResult.map(it => 'empty');
   const [correctFields, setCorrectFields] = useState<Array<string>>(fields);
   const [isCorrect, setCorrect] = useState('empty');
-  const[fieldValues, setFieldValues] = useState<Array<string>>([]);
+  const [fieldValues, setFieldValues] = useState<Array<string>>([]);
 
   useEffect(() => {
     let newIsCorrect = 'empty';

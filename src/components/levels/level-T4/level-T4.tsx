@@ -10,6 +10,8 @@ import Step6 from "./step6";
 import '../level.css';
 import './level-T4.css';
 import { Crib } from "../../crib/crib";
+import { MultiplyTableButton } from "../../multiply-table/multiply-table-button";
+import { MultiplyTable } from "../../multiply-table/multiply-table";
 
 interface ILevelProps {
   onCompleteStep: (step: number, totalSteps: number) => void;
@@ -23,10 +25,16 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
   const [activeStep, setActiveStep] = useState(1);
   const [isOpenDraft, setIsOpenDraft] = useState(false);
   const [draftState, setDraftState] = useState<any>({});
+  const [isOpenMultiplyTable, setIsOpenMultiplyTable] = useState(false);
 
   return (
     <div className="level">
+      <div className="level__buttons">
       <Crib />
+      <MultiplyTableButton onClose={() => {
+        isOpenMultiplyTable ? setIsOpenMultiplyTable(false) : setIsOpenMultiplyTable(true);
+      }}/>
+      </div>    
       <div className="full-expression-wrapper">
         <div className="full-expression">
           {
@@ -90,6 +98,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
           (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}))
          }}/>}
       </DraftPopup>}
+      <MultiplyTable isOpen={isOpenMultiplyTable} />
     </div>
   )
 };

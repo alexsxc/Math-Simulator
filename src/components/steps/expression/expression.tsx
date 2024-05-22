@@ -128,6 +128,42 @@ function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IE
   )
 }
 
+interface IExpressionBrackets {
+  numerator: Array<{ type: string, value: any }>,
+  onChangeCorrectState?: (isCorrect: string) => void
+}
+
+
+
+function ExpressionBrackets({ numerator, onChangeCorrectState }: IExpressionBrackets) {
+  const [correctFields, setCorrectFields] = useState<Record<string, string>>({ numerator: 'empty', denominator: 'empty' });
+  const [isCorrect, setCorrect] = useState('empty');
+
+  useEffect(() => {
+    let newIsCorrect = 'empty';
+    if (Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
+      newIsCorrect = 'correct';
+    } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+
+    if (isCorrect != newIsCorrect) {
+      onChangeCorrectState?.(newIsCorrect);
+      setCorrect(newIsCorrect);
+    }
+  }, [correctFields]);
+  return (
+    <div className="brackets">
+      <div className="bracket bracket--open"></div>
+      <Expression expression={numerator} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, numerator: isCorrect }))} />
+      <div className="bracket bracket--close"></div>
+    </div>
+  )
+}
+
+
+
+
 interface IExpression {
   expression: Array<{ type: string, value: any }>,
   onChangeCorrectState?: (isCorrect: string) => void,
@@ -185,6 +221,8 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
           return <ExpressionField key={index} name={it.value.name} answer={it.value.answer} initialValue={it.value.initialValue} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [it.value.name]: isCorrect }))} />
         } else if (it.type == 'frac') {
           return <ExpressionFraction key={index} numerator={it.value[0]} denominator={it.value[1]} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }))} />
+        } else if (it.type == 'bracket') {
+          return <ExpressionBrackets key={index} numerator={it.value[0]} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }))} />
         } else {
           throw new Error('Invalid expression!')
         }

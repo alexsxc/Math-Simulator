@@ -70,7 +70,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       </div>
       <button type="button" className="open-draft-button" onClick={() => {
         setIsOpenDraft(true);
-      }} disabled={!((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2))}>Черновик</button>
+      }} /*disabled={!((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2))}*/>Черновик</button>
       {<DraftPopup isOpen={isOpenDraft} onClose={() => {
         setIsOpenDraft(false)
       }}>
@@ -97,6 +97,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
           console.log(isCorrect);
           (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}))
          }}/>}
+         <DraftMul inputValues={[12, 23]} onChangeCorrectState={() => {}}/>
       </DraftPopup>}
       <MultiplyTable isOpen={isOpenMultiplyTable} />
     </div>

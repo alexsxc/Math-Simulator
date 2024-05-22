@@ -175,8 +175,12 @@ interface IDraftMul {
 export function DraftMul({ inputValues, onChangeCorrectState }: IDraftMul) {
   const mulResult = inputValues.reduce((acc, value) => acc * value, 1).toString().split('');
   const fields = mulResult.map(it => 'empty');
+  const subResults = inputValues[1].toString().split('').reverse().map((it, i) => Number(it) * inputValues[0] * 10 ** i);
+  const subResultsFields = subResults.map(it => it.toString().split('').map(item => 'empty'));
+  const [correctSubResultsFields, setCorrectSubResultsFields] = useState<Array<Array<string>>>(subResultsFields);
   const [correctFields, setCorrectFields] = useState<Array<string>>(fields);
   const [isCorrect, setCorrect] = useState('empty');
+  const [isSubResultsCorrect, setIsSubResultsCorrect] = useState('empty');
   const[fieldValues, setFieldValues] = useState<Array<string>>([]);
 
   useEffect(() => {
@@ -195,6 +199,22 @@ console.log(fieldValues, correctFields, newIsCorrect);
     }
   }, [correctFields, fieldValues]);
 
+  useEffect(() => {
+    let newIsCorrect = 'empty';
+    if (Object.values(correctSubResultsFields).find(jt => jt.find(it => it == 'incorrect' || it == 'empty') != undefined) == undefined) {
+      newIsCorrect = 'correct';
+    } else if (Object.values(correctSubResultsFields).find(jt => jt.find(it => it == 'incorrect') != undefined) != undefined) {
+      newIsCorrect = 'incorrect';
+    }
+
+    const resultValue = Number([...fieldValues].join(''));
+    console.log(resultValue);
+    if (isSubResultsCorrect != newIsCorrect) {
+      // onChangeCorrectState?.(newIsCorrect, resultValue);
+      setIsSubResultsCorrect(newIsCorrect);
+    }
+  }, [correctSubResultsFields]);
+
   return (
     <div className="draft-summ">
       <div className="draft-summ-arguments">
@@ -211,7 +231,30 @@ console.log(fieldValues, correctFields, newIsCorrect);
       )}
       <div className="draft-summ__slash slash"></div>
       </div>
-      <div className="draft-summ__argument">
+
+     {subResults.length > 1 && <div className="draft-summ-arguments">
+      {subResults.map((value, argumentIndex) => (
+        <React.Fragment  key={argumentIndex}>
+          <div className="draft-summ__argument">
+            {value.toString().split('').map((it, index) => (
+              // <ExpressionNumber key={index} value={Number(it)} />
+              <ExpressionField key={index} answer={Number(it)} name={index.toString()} onChangeCorrectState={(isCorrect) => {
+                setCorrectSubResultsFields(last => {
+                  const nextState = JSON.parse(JSON.stringify(last));
+                  nextState[argumentIndex][index] = isCorrect;
+                  return nextState;
+                })
+              }}/>
+            ))}
+          </div>
+          {argumentIndex != subResults.length - 1 && <div className="draft-summ__sign"><ExpressionSign sign={"+"} /></div>}
+        </React.Fragment>
+      )
+      )}
+      {isSubResultsCorrect == 'correct' && <div className="draft-summ__slash slash"></div>}
+      </div>}
+
+     {(isSubResultsCorrect == 'correct' || subResults.length < 2) && <div className="draft-summ__argument">
         {mulResult.map((it, index) => (
           <ExpressionField key={index} name={index.toString()} answer={Number(it)} 
           onChangeCorrectState={(isCorrect, value) => { 
@@ -223,7 +266,7 @@ console.log(fieldValues, correctFields, newIsCorrect);
             });
           }} />
         ))}
-      </div>
+      </div>}
     </div>
   )
 }

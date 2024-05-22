@@ -136,7 +136,7 @@ interface IExpressionBrackets {
 
 
 function ExpressionBrackets({ numerator, onChangeCorrectState }: IExpressionBrackets) {
-  const [correctFields, setCorrectFields] = useState<Record<string, string>>({ numerator: 'empty', denominator: 'empty' });
+  const [correctFields, setCorrectFields] = useState<Record<string, string>>({ numerator: 'empty' });
   const [isCorrect, setCorrect] = useState('empty');
 
   useEffect(() => {

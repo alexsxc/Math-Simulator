@@ -4,12 +4,6 @@
   align-items: flex-end;
   padding-left: 30px;
 }
-.draft-operation {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  padding-left: 30px;
-}
 
 .draft-operation__argument {
   display: flex;
@@ -71,6 +65,12 @@
 }
 
 .draft-summ-arguments {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.draft-sub-operation {
   display: flex;
   flex-direction: column;
   align-items: flex-end;

@@ -97,7 +97,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
           console.log(isCorrect);
           (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}))
          }}/>}
-         <DraftMul inputValues={[12, 23]} onChangeCorrectState={() => {}}/>
+         {/* <DraftDivide didivend={482} divisor={63} onChangeCorrectState={() => {}} onChangeCorrectModState={() => {}}/> */}
       </DraftPopup>}
       <MultiplyTable isOpen={isOpenMultiplyTable} />
     </div>

@@ -1,3 +1,8 @@
+.level__buttons {
+  display: flex;
+  gap: 30px;
+}
+
 .step3-expression-wrapper {
   position: relative;
 }
@@ -185,4 +190,15 @@
 
 .full-expression-wrapper {
   padding-top: 40px;
+}
+
+.step__instruction {
+  position: absolute;
+  width: 106px;
+  top: 13px;
+  left: 178px;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #000;
 }

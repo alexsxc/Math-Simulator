@@ -1,14 +1,17 @@
 .overlay {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  top: -20px;
-  left: -20px;
+  width: calc(100% + 2 * 44px);
+  height: calc(100% + 2 * 26px);
+  top: -26px;
+  left: -44px;
   background-color: #fff9;
+  border: 1px solid red;
 }
 
 .draft-popup {
   width: 100%;
+  /* height: 100%; */
+  overflow: auto;
   position: absolute;
   bottom: 0;
   display: flex;

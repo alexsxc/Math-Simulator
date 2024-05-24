@@ -4,6 +4,7 @@ import { StepProgress } from "../../components/stepProgress/stepProgress";
 import { Link, useParams } from "react-router-dom";
 import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
 import LevelT4 from "../../components/levels/level-T4/level-T4";
+import { MultiplyTable } from "../../components/multiply-table/multiply-table";
 import './levelPage.css';
 
 export function LevelPage() {
@@ -18,13 +19,13 @@ export function LevelPage() {
   ]
   const CurrentLevel = levels[Number(id)];
   const currentLevelElement = CurrentLevel ? <CurrentLevel onCompleteStep={(step, totalSteps) => {
-      setStepCompleteCount(step - 1);
-      setTotalStepsCount(totalSteps);
-    }} onCompleteLevel={() => {
-      setIsCompleteLevel(true);
-    }} onChangeCorrectStepState={(step, state) => {
-      setIsActiveHint(state == 'incorrect')
-    }}></CurrentLevel> : 'Уровень не найден';
+    setStepCompleteCount(step - 1);
+    setTotalStepsCount(totalSteps);
+  }} onCompleteLevel={() => {
+    setIsCompleteLevel(true);
+  }} onChangeCorrectStepState={(step, state) => {
+    setIsActiveHint(state == 'incorrect')
+  }}></CurrentLevel> : 'Уровень не найден';
 
   return (
     <>
@@ -43,17 +44,17 @@ export function LevelPage() {
             <button className={`progress__button progress__button--hint ${isActiveHint ? "progress__button--hint-active" : ""}`}>
               <span>Подсказка</span>
             </button>
-            <button className={`progress__button progress__button--next-level ${isCompleteLevel ? "" : "progress__button--inactive" }`}>
+            <button className={`progress__button progress__button--next-level ${isCompleteLevel ? "" : "progress__button--inactive"}`}>
               <span>Следующий пример</span>
             </button>
           </div>
         </div>
         <div className="game-field">
-          {currentLevelElement}
+          {currentLevelElement}        
           {isCompleteLevel && <SuccessPopup />}
-          {isActiveHint && <ErrorPopup />}          
+          {isActiveHint && <ErrorPopup />}
         </div>
-        
+
       </div>
     </>
   )

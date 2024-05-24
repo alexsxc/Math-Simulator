@@ -5,7 +5,7 @@ import { IStepProps } from "./IStepProps";
 
 export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCorrectStepState }: IStepProps) {
   const stepData = {
-      expression: '$frac(a@3 * b@9 + c@2, 9) + $frac(d@4 * e@7 + f@3, 7)',
+      expression: '$frac($bracket(a@3@ЦЧ * b@9@З) + c@2@Ч, 9) + $frac($bracket(d@4@ЦЧ * e@7@З) + f@3@Ч, 7)',
   }
   return <>
     {activeStep <= stepIndex + 1 && 

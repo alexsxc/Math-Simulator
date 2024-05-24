@@ -1,12 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { Expression, ExpressionFieldDiagonal } from "../../steps/expression/expression";
-import { parseExpression } from "../../../parsers";
+import { parseExpression, findField } from "../../../parsers";
 import { IStepProps } from "./IStepProps";
 
-export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCorrectStepState, onCompleteSubStep }: IStepProps) {
+export default function Step({ stepIndex, activeStep, draftState, onCompleteStep, onChangeCorrectStepState, onCompleteSubStep }: IStepProps) {
+  const stepData1 = {
+    expression: '$frac(29, 9) + $frac(31, 7)',
+    messageTop: 'Домножаем на дополнительные множители',
+    messageBottom: 'Умножаем'
+  }
+  const stepData2 = {
+    expression: '$frac(_, a@63) + $frac(_, b@63)',
+  }
+  const stepData3 = {
+    expression: '$frac(a@203, 63) + $frac(b@279, 63)',
+    messageTop: 'Складываем'
+  }
+  
   const [correctFields, setCorrectFields] = useState<Record<string, string>>({ diagonal1: 'empty', diagonal2: 'empty', subStep1: 'empty', subStep2: 'empty' });
   const [isCorrect, setCorrect] = useState('empty');
   const [subStep, setSubStep] = useState(0);
+  const [subStep3Expression, setSubStep3Expression] = useState(parseExpression(stepData3.expression));
+
+  useEffect(() => {
+    console.log(draftState);
+    if(draftState.step3_1 != undefined) {
+      setSubStep3Expression(last => {
+        const nextState = JSON.parse(JSON.stringify(last));
+        const fieldData = findField(nextState, 'a');
+        fieldData.value.initialValue = draftState.step3_1;
+        return nextState;
+      })
+    } 
+
+    if(draftState.step3_2 != undefined) {
+      setSubStep3Expression(last => {
+        const nextState = JSON.parse(JSON.stringify(last));
+        const fieldData = findField(nextState, 'b');
+        fieldData.value.initialValue = draftState.step3_2;
+        return nextState;
+      })
+    } 
+  }, [draftState]);
 
   useEffect(() => {
     let newIsCorrect = 'empty';
@@ -39,18 +74,9 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
     }
   }, [correctFields]);
 
-  const stepData1 = {
-    expression: '$frac(29, 9) + $frac(31, 7)',
-    messageTop: 'Делаем диагональное умножение \n знаменателя на числитель',
-    messageBottom: 'Умножаем'
-  }
-  const stepData2 = {
-    expression: '$frac(_, a@63) + $frac(_, b@63)',
-  }
-  const stepData3 = {
-    expression: '$frac(a@203, 63) + $frac(b@279, 63)',
-    messageTop: 'Складываем'
-  }
+
+
+  console.log(parseExpression(stepData1.expression));
 
   return <>
     <div className="step">
@@ -119,7 +145,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
         </div>}        
           </div>
           <div className="step3-expression-wrapper">
-            <Expression expression={parseExpression(stepData3.expression)} onChangeCorrectState={(isCorrect) => {
+            <Expression expression={subStep3Expression} onChangeCorrectState={(isCorrect) => {
               setCorrectFields(last => ({ ...last, subStep2: isCorrect }))
             }} isPassive={false} />
           </div>

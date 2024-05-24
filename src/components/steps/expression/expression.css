@@ -24,6 +24,13 @@
     border-radius: 12px;
 }
 
+.expression-field::placeholder {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+    color: #000;
+}
+
 .expression-number {
     display: flex;
     align-items: center;
@@ -99,4 +106,21 @@
 
 .expression-field-diagonal:focus {
     outline: none;
+}
+
+.brackets {
+    display: flex;
+}
+
+.bracket {
+    width: 12px;
+    background-image: url("../../../assets/icons/bracket.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+.bracket--close {
+    transform: scaleX(-1);
+    transform-origin: center;
 }

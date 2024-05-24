@@ -1,0 +1,54 @@
+.multiply-table-button {
+  width: 318px;
+  z-index: 1001;
+}
+
+.multiply-table-button__button {
+  width: 100%;
+  padding: 20px 38px;
+  padding-left: 70px;
+  background: rgba(57, 196, 255, 0.12); 
+  background-image: url("../../assets/icons/close-multiply-table.svg");
+  background-size: 24px 24px;
+  background-position: 40px center;
+  background-repeat: no-repeat; 
+  border-radius: 24px;
+}
+
+.multiply-table-button__text {
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 600;
+  color: #000;
+} 
+
+.multiply-table {
+  position: absolute;
+  right: 0;
+  width: 390px;
+  background: #FFFFFF;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 24px;
+  transition-duration: 300ms;
+  transform: translateY(calc(-100% - 26px - 10px));
+}
+
+.multiply-table--open {
+  transform: translateY(0%);
+  z-index: 1001;
+}
+
+.multiply-table__wrapper {
+  width: 100%;
+  padding: 6px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.multiply-table__column {
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: normal;
+}

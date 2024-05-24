@@ -6,10 +6,11 @@ interface IExpressionField {
   name: string,
   answer: number,
   onChangeCorrectState: (isCorrect: string, value: string) => void,
-  initialValue?: number
+  initialValue?: number,
+  placeholder?: string
 }
 
-export function ExpressionField({ name, answer, onChangeCorrectState, initialValue }: IExpressionField) {
+export function ExpressionField({ name, answer, onChangeCorrectState, initialValue, placeholder }: IExpressionField) {
   const [value, setValue] = useState('');
   const [isCorrect, setCorrect] = useState('empty');
 
@@ -31,7 +32,7 @@ export function ExpressionField({ name, answer, onChangeCorrectState, initialVal
   }, [value, answer]);
 
   return (
-    <input type="text" value={value} onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}
+    <input type="text" value={value} placeholder={placeholder || ''} onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}
       onBlur={() => {
         if (value !== '' && answer != Number(value) && isCorrect != 'incorrect') {
           onChangeCorrectState('incorrect', value);
@@ -218,7 +219,7 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
         } else if (it.type == 'sign') {
           return <ExpressionSign key={index} sign={it.value} />
         } else if (it.type == 'field') {
-          return <ExpressionField key={index} name={it.value.name} answer={it.value.answer} initialValue={it.value.initialValue} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [it.value.name]: isCorrect }))} />
+          return <ExpressionField key={index} name={it.value.name} answer={it.value.answer} placeholder={it.value.placeholder} initialValue={it.value.initialValue} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [it.value.name]: isCorrect }))} />
         } else if (it.type == 'frac') {
           return <ExpressionFraction key={index} numerator={it.value[0]} denominator={it.value[1]} onChangeCorrectState={(isCorrect) => setCorrectFields(last => ({ ...last, [index.toString()]: isCorrect }))} />
         } else if (it.type == 'bracket') {

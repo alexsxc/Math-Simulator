@@ -31,7 +31,6 @@ function parseFunc(funcExpression: string) {
 }
 
 export function findField(obj: any, name: string): {type: string, value: {name: string,  initialValue: number, answer: number}} {
-    console.log(obj);
    if (obj && typeof obj == 'object'){
        if (obj.type == 'field' && obj.value.name == name) {
            return obj;
@@ -107,7 +106,7 @@ export function parseExpression(expression: string) {
                 currentType = 'sign';
                 currentLine += it;
 
-            } else if (/^[a-zA-Z@]*$/.test(it)) {
+            } else if (/^[a-zA-Zа-яА-Я@]*$/.test(it)) {
                 if (currentType == '') {
 
                 } else if (currentType == 'field') {
@@ -125,10 +124,11 @@ export function parseExpression(expression: string) {
                 funcIncludesCount++;
 
             } else {
+                
                 if (currentLine) {
                     if(currentType == 'field') {
-                        const [name, answer] = currentLine.trim().split('@');
-                        result.push(({ type: currentType, value: {name, answer: Number(answer)} }));
+                        const [name, answer, placeholder] = currentLine.trim().split('@');
+                        result.push(({ type: currentType, value: {name, answer: Number(answer), placeholder} }));
                     } else {
                         result.push(({ type: currentType, value: currentLine.trim() }));
                     }
@@ -140,8 +140,8 @@ export function parseExpression(expression: string) {
     });
     if (currentLine) {
         if(currentType == 'field') {
-            const [name, answer] = currentLine.trim().split('@');
-            result.push(({ type: currentType, value: {name, answer: Number(answer)} }));
+            const [name, answer, placeholder] = currentLine.trim().split('@');
+            result.push(({ type: currentType, value: {name, answer: Number(answer), placeholder} }));
         } else {
             result.push(({ type: currentType, value: currentLine.trim() }));
         }

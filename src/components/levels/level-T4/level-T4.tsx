@@ -30,7 +30,6 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    console.log(isOpenDraft);
     let timerId: ReturnType<typeof setTimeout>;
     if(isOpenDraft) {
       timerId = setTimeout(() => {

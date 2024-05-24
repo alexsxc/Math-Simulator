@@ -24,6 +24,13 @@
     border-radius: 12px;
 }
 
+.expression-field::placeholder {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+    color: #000;
+}
+
 .expression-number {
     display: flex;
     align-items: center;

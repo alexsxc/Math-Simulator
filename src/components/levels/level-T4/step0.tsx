@@ -10,6 +10,7 @@ export default function Step({ stepIndex, activeStep, onCompleteStep, onChangeCo
   }
   return <>
     <div className="step">
+      {activeStep <= stepIndex + 1 && <div className="step__instruction">ЦЧ * З + Ч</div>}
       <div className="hint-slot hint-slot--up hint-slot--step0">
         {stepData.messageTop && <div className={`hint hint-up ${activeStep > stepIndex + 1 ? "hint--inactive" : ""}`}>
           {stepData.messageTop}

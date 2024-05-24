@@ -93,7 +93,7 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
     b: new Array(it.b.toString().length).fill('empty')
   }))
   subResultsFields[0].a = new Array(didivend.toString().length).fill('correct');
-  const fieldsMod = divResult.map(it => 'empty');
+  const fieldsMod = modResult.map(it => 'empty');
   const [correctModFields, setCorrectModFields] = useState<Array<string>>(fieldsMod);
   const [isCorrectMod, setCorrectMod] = useState('empty');
   const [fieldModValues, setFieldModValues] = useState<Array<string>>([]);

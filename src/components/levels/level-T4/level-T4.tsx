@@ -24,8 +24,26 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
   const steps = [Step0, Step1, Step2, Step3, Step5, Step6];
   const [activeStep, setActiveStep] = useState(1);
   const [isOpenDraft, setIsOpenDraft] = useState(false);
+  const [isOpenedDraft, setIsOpenedDraft] = useState(false);
   const [draftState, setDraftState] = useState<any>({});
   const [isOpenMultiplyTable, setIsOpenMultiplyTable] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    console.log(isOpenDraft);
+    let timerId: ReturnType<typeof setTimeout>;
+    if(isOpenDraft) {
+      timerId = setTimeout(() => {
+        setIsOpenedDraft(true);
+      }, 3000);
+    } else {
+      clearTimeout(timerId);
+      setIsOpenedDraft(false);
+    }
+    return () => {
+      clearTimeout(timerId);
+    }
+  }, [isOpenDraft]);
 
   return (
     <div className="level">
@@ -47,12 +65,16 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
 
                     setActiveStep(last => Math.max(index + 1, last));
                     onCompleteStep(nextStep, steps.length);
-                    if ([4, 5].includes(nextStep)) {
-                      setIsOpenDraft(true);
-                    }
-                    if (nextStep == steps.length) {
-                      onCompleteLevel();
-                    }
+                    setIsOpenDraft(false);
+                    setTimeout(() => {
+                      if ([4, 5].includes(nextStep)) {
+                        setIsOpenDraft(true);
+                      }
+                      if (nextStep == steps.length) {
+                        onCompleteLevel();
+                        setIsComplete(true);
+                      }
+                    }, 1000);                    
                   }}
                   onCompleteSubStep={(index, subStepIndex) => {
                     if (subStepIndex == 2 && index == 3) {
@@ -70,9 +92,10 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       </div>
       <button type="button" className="open-draft-button" onClick={() => {
         setIsOpenDraft(true);
-      }} /*disabled={!((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2))}*/>Черновик</button>
-      {<DraftPopup isOpen={isOpenDraft} onClose={() => {
-        setIsOpenDraft(false)
+        setIsOpenedDraft(true);
+      }} disabled={!((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2))}>Черновик</button>
+      {<DraftPopup isOpen={isOpenedDraft} onClose={() => {
+        setIsOpenDraft(false);
       }}>
         {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[29, 7]} 
         onChangeCorrectState={(isCorrect, draftValue) => { 

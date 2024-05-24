@@ -6,7 +6,7 @@ import { IStepProps } from "./IStepProps";
 export default function Step({ stepIndex, activeStep, draftState, onCompleteStep, onChangeCorrectStepState, onCompleteSubStep }: IStepProps) {
   const stepData1 = {
     expression: '$frac(29, 9) + $frac(31, 7)',
-    messageTop: 'Делаем диагональное умножение \n знаменателя на числитель',
+    messageTop: 'Домножаем на дополнительные множители',
     messageBottom: 'Умножаем'
   }
   const stepData2 = {

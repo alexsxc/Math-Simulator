@@ -106,7 +106,7 @@ export function parseExpression(expression: string) {
                 currentType = 'sign';
                 currentLine += it;
 
-            } else if (/^[a-zA-Zа-яА-Я@]*$/.test(it)) {
+            } else if (/^[a-zA-Zа-яА-Я@\u00AD_]*$/.test(it)) {
                 if (currentType == '') {
 
                 } else if (currentType == 'field') {

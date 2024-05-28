@@ -25,11 +25,30 @@
 }
 
 .expression-field::placeholder {
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: 600;
+    font-size: 0px;
+    font-family: 'Transforma Script_Trial';    
+    line-height: 15px;
+    font-weight: 500;
     color: #000;
 }
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-placeholder {
+    display: none;
+    width: 100%;
+    font-size: 14px;
+    font-family: 'Transforma Script_Trial';    
+    line-height: 15px;
+    font-weight: 500;
+    color: #000;
+}
+
+.expression-field:placeholder-shown ~ .input-placeholder{
+    display: block;
+  }
 
 .expression-number {
     display: flex;
@@ -80,6 +99,14 @@
 .expression-field--incorrect {
     background: rgba(255, 0, 0, 0.4);
     border: 1px solid #FF4D20;
+}
+
+.expression-field__transparent {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
 }
 
 .expression-label-diagonal {

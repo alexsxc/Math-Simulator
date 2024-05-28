@@ -32,13 +32,18 @@ export function ExpressionField({ name, answer, onChangeCorrectState, initialVal
   }, [value, answer]);
 
   return (
-    <input type="text" value={value} placeholder={placeholder || ''} onChange={(evt) => setValue(evt.target.value)} className={`expression-field  ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}
-      onBlur={() => {
-        if (value !== '' && answer != Number(value) && isCorrect != 'incorrect') {
-          onChangeCorrectState('incorrect', value);
-          setCorrect('incorrect');
-        }
-      }} />
+    <div className={`expression-field input-wrapper ${{ 'empty': '', 'correct': "expression-field--correct", 'incorrect': "expression-field--incorrect" }[isCorrect]}`}>
+      <input type="text" className={`expression-field  expression-field__transparent`}
+        value={value} placeholder={placeholder || ''}
+        onChange={(evt) => setValue(evt.target.value)}
+        onBlur={() => {
+          if (value !== '' && answer != Number(value) && isCorrect != 'incorrect') {
+            onChangeCorrectState('incorrect', value);
+            setCorrect('incorrect');
+          }
+        }} />
+      <div className="input-placeholder">{(placeholder || '').split('_').join(' ')}</div>
+    </div>
   )
 };
 
@@ -54,7 +59,7 @@ export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: 
     if (value != '' && answer === Number(value)) {
       newIsCorrect = 'correct';
     } else if (value != '') {
-      
+
     }
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState(newIsCorrect, value);

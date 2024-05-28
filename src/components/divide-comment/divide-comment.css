@@ -1,0 +1,18 @@
+.divide-comment-wrapper {
+  width: 257px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.divide-comment {
+  width: 100%;
+  padding: 5px 20px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+}
+
+.divide-comment span {
+  font-weight: 900;
+}

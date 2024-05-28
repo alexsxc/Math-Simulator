@@ -12,6 +12,7 @@ import './level-T4.css';
 import { Crib } from "../../crib/crib";
 import { MultiplyTableButton } from "../../multiply-table/multiply-table-button";
 import { MultiplyTable } from "../../multiply-table/multiply-table";
+import { DivideComment } from "../../divide-comment/divide-comment";
 
 interface ILevelProps {
   onCompleteStep: (step: number, totalSteps: number) => void;
@@ -28,6 +29,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
   const [draftState, setDraftState] = useState<any>({});
   const [isOpenMultiplyTable, setIsOpenMultiplyTable] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
+  const [showDivideComment, setShowDivideComment] = useState(false);
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
@@ -64,7 +66,8 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
 
                     setActiveStep(last => Math.max(index + 1, last));
                     onCompleteStep(nextStep, steps.length);
-                    setIsOpenDraft(false);
+
+                    activeStep < 5 && setIsOpenDraft(false);                    
                     setTimeout(() => {
                       if ([4, 5].includes(nextStep)) {
                         setIsOpenDraft(true);
@@ -96,16 +99,16 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       {<DraftPopup isOpen={isOpenedDraft} onClose={() => {
         setIsOpenDraft(false);
       }}>
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[29, 7]} 
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && activeStep < 5 && <DraftMul inputValues={[29, 7]} 
         onChangeCorrectState={(isCorrect, draftValue) => { 
          console.log(isCorrect);
          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step3_1: draftValue}))
         }}/>}
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && <DraftMul inputValues={[31, 9]} 
+        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && activeStep < 5 && <DraftMul inputValues={[31, 9]} 
         onChangeCorrectState={(isCorrect, draftValue) => { 
           (isCorrect == 'correct') && setDraftState((last: any ) => ({...last, step3_2: draftValue}))
         }}/>}
-        {activeStep >= 4 && <DraftSumm inputValues={[203, 279]} 
+        {activeStep >= 4 && activeStep < 5 && <DraftSumm inputValues={[203, 279]} 
          onChangeCorrectState={(isCorrect, draftValue) => { 
           console.log(isCorrect);
           (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step5: draftValue}))
@@ -115,10 +118,11 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
           console.log(isCorrect);
           (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_1: draftValue}))
          }}
-         onChangeCorrectModState={(isCorrect, draftValue) => { 
-          console.log(isCorrect);
-          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}))
+         onChangeCorrectModState={(isCorrect, draftValue) => {         
+          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}));
+          (isCorrect == 'correct') && setShowDivideComment(true);
          }}/>}
+      {showDivideComment && <DivideComment mod={41} diviser={7}/>}
       </DraftPopup>}
       <MultiplyTable isOpen={isOpenMultiplyTable} />
     </div>

@@ -33,6 +33,16 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Inter';
+  src: url('Inter-Black.woff2') format('woff2'),
+      url('Inter-Black.woff') format('woff');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'Transforma Script_Trial Variable ExLight';
   src: url('TransformaScript_TrialVariableScript-ExtraLight.woff2') format('woff2'),

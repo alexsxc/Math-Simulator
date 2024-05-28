@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DraftDivide, DraftMul, DraftSumm } from "../../steps/draft/draft";
 import { DraftPopup } from "../../draftPopup/draftPopup";
 import Step0 from "./step0";
@@ -119,7 +119,6 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
           console.log(isCorrect);
           (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}))
          }}/>}
-         {/* <DraftDivide didivend={482} divisor={63} onChangeCorrectState={() => {}} onChangeCorrectModState={() => {}}/> */}
       </DraftPopup>}
       <MultiplyTable isOpen={isOpenMultiplyTable} />
     </div>

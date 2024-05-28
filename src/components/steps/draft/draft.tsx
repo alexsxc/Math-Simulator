@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { ExpressionField, ExpressionSign, ExpressionNumber } from "../expression/expression";
 import './draft.css';
 
-interface IDraftSumm {
+interface IDraftSummProps {
   inputValues: Array<number>,
   onChangeCorrectState: (isCorrect: string, draftValue: number) => void
 }
 
-export function DraftSumm({ inputValues, onChangeCorrectState }: IDraftSumm) {
+export function DraftSumm({ inputValues, onChangeCorrectState }: IDraftSummProps) {
   const summResult = inputValues.reduce((acc, value) => acc + value, 0).toString().split('');
   const fields = summResult.map(it => 'empty');
   const [correctFields, setCorrectFields] = useState<Array<string>>(fields);
@@ -97,9 +97,9 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
   const [correctModFields, setCorrectModFields] = useState<Array<string>>(fieldsMod);
   const [isCorrectMod, setCorrectMod] = useState('empty');
   const [fieldModValues, setFieldModValues] = useState<Array<string>>([]);
-  const [correctSubResultsFields, setCorrectSubResultsFields] = useState<Array<{a: Array<string>, b: Array<string>}>>(subResultsFields);
+  const [correctSubResultsFields, setCorrectSubResultsFields] = useState<Array<{ a: Array<string>, b: Array<string> }>>(subResultsFields);
   const [currentStep, setCurrentStep] = useState(0);
-  
+
 
   useEffect(() => {
     let newIsCorrect = 'empty';
@@ -134,18 +134,18 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
   }, [correctModFields, fieldModValues]);
 
   useEffect(() => {
-    if(currentStep == correctSubResultsFields.length) return;
+    if (currentStep == correctSubResultsFields.length) return;
     console.log(correctSubResultsFields, currentStep);
     let newIsCorrect = 'empty';
-    if (((correctSubResultsFields[currentStep]).a.find(it => it == 'incorrect' || it == 'empty') == undefined) 
+    if (((correctSubResultsFields[currentStep]).a.find(it => it == 'incorrect' || it == 'empty') == undefined)
       && ((correctSubResultsFields[currentStep]).b.find(it => it == 'incorrect' || it == 'empty') == undefined)) {
       newIsCorrect = 'correct';
-    } else if (((correctSubResultsFields[currentStep]).a.find(it => it == 'incorrect') != undefined) 
+    } else if (((correctSubResultsFields[currentStep]).a.find(it => it == 'incorrect') != undefined)
       && ((correctSubResultsFields[currentStep]).b.find(it => it == 'incorrect') != undefined)) {
       newIsCorrect = 'incorrect';
     }
 
-    if(newIsCorrect == 'correct' && currentStep < correctSubResultsFields.length) {
+    if (newIsCorrect == 'correct' && currentStep < correctSubResultsFields.length) {
       setCurrentStep(last => last + 1);
     }
   }, [correctSubResultsFields, currentStep]);
@@ -154,18 +154,7 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
   return (
     <div className="draft-divide-wrapper">
       <div className="draft-operation draft-divide">
-        {/* {[didivend, Math.floor(didivend / divisor) * divisor].map((value, argumentIndex) => (
-          <React.Fragment key={argumentIndex}>
-            <div className="draft-operation__argument">
-              {value.toString().split('').map((it, index) => (
-                <ExpressionNumber key={index} value={Number(it)} />
-              ))}
-            </div>
-            {argumentIndex != 1 && <div className="draft-operation__sign"><ExpressionSign sign={"-"} /></div>}
-          </React.Fragment>
-        )
-        )} */}
-        {[ {a: didivend, b: subResults[0].b, pos: subResults[0].pos},  ...subResults.slice(1)].slice(0, currentStep + 1).map((subResult, subResultIndex) => {
+        {[{ a: didivend, b: subResults[0].b, pos: subResults[0].pos }, ...subResults.slice(1)].slice(0, currentStep + 1).map((subResult, subResultIndex) => {
           return (
             <div className="draft-sub-operation">
               {
@@ -174,15 +163,17 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
                     <div className="draft-operation__argument">
                       {value.toString().split('').map((it, index) => (
                         (argumentIndex == 0 && subResultIndex == 0) ? <ExpressionNumber key={index} value={Number(it)} /> :
-                        <ExpressionField key={index} answer={Number(it)} name={(subResultIndex * 2 + argumentIndex).toString()} 
-                          onChangeCorrectState={(isCorrect) => {setCorrectSubResultsFields(last => {
-                            const next = JSON.parse(JSON.stringify(last));
-                            next[subResultIndex][['a', 'b'][argumentIndex]][index] = isCorrect;
-                            return next;
-                          })}}/>
+                          <ExpressionField key={index} answer={Number(it)} name={(subResultIndex * 2 + argumentIndex).toString()}
+                            onChangeCorrectState={(isCorrect) => {
+                              setCorrectSubResultsFields(last => {
+                                const next = JSON.parse(JSON.stringify(last));
+                                next[subResultIndex][['a', 'b'][argumentIndex]][index] = isCorrect;
+                                return next;
+                              })
+                            }} />
                       ))}
                       {new Array(((argumentIndex == 0 && subResultIndex == 0) ? 0 : didivend.toString().length - subResult.pos - 1)).fill(0).map((it, index) => (
-                        <div className="expression-number" style={{visibility: "hidden"}}></div>
+                        <div className="expression-number" style={{ visibility: "hidden" }}></div>
                       ))}
                     </div>
 
@@ -190,13 +181,13 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
                   </React.Fragment>
                 ))
               }
-             {subResultIndex != currentStep && <div className="draft-operation__slash slash"></div>}
+              {subResultIndex != currentStep && <div className="draft-operation__slash slash"></div>}
             </div>
           )
         }
         )}
 
-       {currentStep == subResults.length && <div className="draft-operation__argument">
+        {currentStep == subResults.length && <div className="draft-operation__argument">
           {modResult.map((it, index) => (
             <ExpressionField key={index} name={index.toString()} answer={Number(it)}
               onChangeCorrectState={(isCorrect, value) => {
@@ -236,12 +227,12 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
   )
 }
 
-interface IDraftMul {
+interface IDraftMulProps {
   inputValues: Array<number>,
   onChangeCorrectState: (isCorrect: string, draftValue: number) => void
 }
 
-export function DraftMul({ inputValues, onChangeCorrectState }: IDraftMul) {
+export function DraftMul({ inputValues, onChangeCorrectState }: IDraftMulProps) {
   const mulResult = inputValues.reduce((acc, value) => acc * value, 1).toString().split('');
   const fields = mulResult.map(it => 'empty');
   const subResults = inputValues[1].toString().split('').reverse().map((it, i) => Number(it) * inputValues[0] * 10 ** i);
@@ -305,7 +296,6 @@ export function DraftMul({ inputValues, onChangeCorrectState }: IDraftMul) {
           <React.Fragment key={argumentIndex}>
             <div className="draft-summ__argument">
               {value.toString().split('').map((it, index) => (
-                // <ExpressionNumber key={index} value={Number(it)} />
                 <ExpressionField key={index} answer={Number(it)} name={index.toString()} onChangeCorrectState={(isCorrect) => {
                   setCorrectSubResultsFields(last => {
                     const nextState = JSON.parse(JSON.stringify(last));

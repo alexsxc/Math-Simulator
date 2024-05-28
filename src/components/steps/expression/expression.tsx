@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import './expression.css';
 import './expressionPassive.css';
 
-interface IExpressionField {
+interface IExpressionFieldProps {
   name: string,
   answer: number,
   onChangeCorrectState: (isCorrect: string, value: string) => void,
@@ -10,7 +10,7 @@ interface IExpressionField {
   placeholder?: string
 }
 
-export function ExpressionField({ name, answer, onChangeCorrectState, initialValue, placeholder }: IExpressionField) {
+export function ExpressionField({ name, answer, onChangeCorrectState, initialValue, placeholder }: IExpressionFieldProps) {
   const [value, setValue] = useState('');
   const [isCorrect, setCorrect] = useState('empty');
 
@@ -42,7 +42,7 @@ export function ExpressionField({ name, answer, onChangeCorrectState, initialVal
   )
 };
 
-export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: IExpressionField) {
+export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: IExpressionFieldProps) {
   const [value, setValue] = useState('');
   const [isCorrect, setCorrect] = useState('empty');
   const uuid = useMemo(() => {
@@ -77,33 +77,33 @@ export function ExpressionFieldDiagonal({ name, answer, onChangeCorrectState }: 
   )
 }
 
-interface IExpressionSign {
+interface IExpressionSignProps {
   sign: string
 }
 
-export function ExpressionSign({ sign }: IExpressionSign) {
+export function ExpressionSign({ sign }: IExpressionSignProps) {
   return (
     <div className="expression-sign">{sign}</div>
   )
 };
 
-interface IExpressionNumber {
+interface IExpressionNumberProps {
   value: number
 }
 
-export function ExpressionNumber({ value }: IExpressionNumber) {
+export function ExpressionNumber({ value }: IExpressionNumberProps) {
   return (
     <div className="expression-number">{Number.isNaN(value) ? "" : value}</div>
   )
 };
 
-interface IExpressionFraction {
+interface IExpressionFractionProps {
   numerator: Array<{ type: string, value: any }>,
   denominator: Array<{ type: string, value: any }>,
   onChangeCorrectState?: (isCorrect: string) => void
 }
 
-function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IExpressionFraction) {
+function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IExpressionFractionProps) {
   const [correctFields, setCorrectFields] = useState<Record<string, string>>({ numerator: 'empty', denominator: 'empty' });
   const [isCorrect, setCorrect] = useState('empty');
 
@@ -129,14 +129,12 @@ function ExpressionFraction({ numerator, denominator, onChangeCorrectState }: IE
   )
 }
 
-interface IExpressionBrackets {
+interface IExpressionBracketsProps {
   numerator: Array<{ type: string, value: any }>,
   onChangeCorrectState?: (isCorrect: string) => void
 }
 
-
-
-function ExpressionBrackets({ numerator, onChangeCorrectState }: IExpressionBrackets) {
+function ExpressionBrackets({ numerator, onChangeCorrectState }: IExpressionBracketsProps) {
   const [correctFields, setCorrectFields] = useState<Record<string, string>>({ numerator: 'empty' });
   const [isCorrect, setCorrect] = useState('empty');
 
@@ -162,19 +160,13 @@ function ExpressionBrackets({ numerator, onChangeCorrectState }: IExpressionBrac
   )
 }
 
-
-
-
-interface IExpression {
+interface IExpressionProps {
   expression: Array<{ type: string, value: any }>,
   onChangeCorrectState?: (isCorrect: string) => void,
   isPassive?: boolean
 }
 
-export function Expression({ expression, onChangeCorrectState, isPassive }: IExpression) {
-  // const expression = '((a * b + c) / 5) * ((d * e + f) / 6)';
-  // const expression = 'a * b + c + 5 + d * e + f';
-  // const parsedExpression = parseExpression(expression);
+export function Expression({ expression, onChangeCorrectState, isPassive }: IExpressionProps) {
   const fields: Record<string, string> = {};
   const iterateExpression = (expression: Array<{ type: string, value: any }>) => {
     expression.forEach((it, index) => {
@@ -190,7 +182,6 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
   const [correctFields, setCorrectFields] = useState<Record<string, string>>(fields);
   const [isCorrect, setCorrect] = useState('empty');
 
-  // const isCorrect: string = useMemo(() => { 
   useEffect(() => {
     let newIsCorrect = 'empty';
     if (Object.values(correctFields).find(it => it == 'incorrect' || it == 'empty') == undefined) {
@@ -205,12 +196,6 @@ export function Expression({ expression, onChangeCorrectState, isPassive }: IExp
     }
   }, [correctFields]);
 
-  const hints = [
-    {
-      text: 'умножаем',
-      fields: ['a', 'e']
-    }
-  ]
   return (
     <div className={`expression-wrapper ${isPassive ? 'expression-passive' : ''}`}>
       {expression.map((it, index) => {

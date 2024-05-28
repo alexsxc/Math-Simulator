@@ -4,7 +4,6 @@ import { StepProgress } from "../../components/stepProgress/stepProgress";
 import { Link, useParams } from "react-router-dom";
 import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
 import LevelT4 from "../../components/levels/level-T4/level-T4";
-import { MultiplyTable } from "../../components/multiply-table/multiply-table";
 import './levelPage.css';
 
 export function LevelPage() {
@@ -54,7 +53,6 @@ export function LevelPage() {
           {isCompleteLevel && <SuccessPopup />}
           {isActiveHint && <ErrorPopup />}
         </div>
-
       </div>
     </>
   )

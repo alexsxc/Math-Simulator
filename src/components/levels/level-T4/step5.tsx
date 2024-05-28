@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Expression } from "../../steps/expression/expression";
 import { findField, parseExpression } from "../../../parsers";
 import { IStepProps } from "./IStepProps";

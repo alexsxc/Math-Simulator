@@ -74,10 +74,6 @@ export default function Step({ stepIndex, activeStep, draftState, onCompleteStep
     }
   }, [correctFields]);
 
-
-
-  console.log(parseExpression(stepData1.expression));
-
   return <>
     <div className="step">
       <div className="hint-slot hint-slot--up hint-slot--step3-top">

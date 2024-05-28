@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter, Routes, Route, Link } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { Header } from "./components/header/header";
 import { LevelPage } from "./pages/levelPage/levelPage";
 import { NavigatePage } from "./pages/navigatePage/navigatePage";

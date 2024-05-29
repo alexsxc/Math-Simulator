@@ -16,8 +16,8 @@
 .arrow-diagonal {
   position: absolute;
   bottom: 87px;
-  width: 58%;
-  height: 58%;
+  width: 44%;
+  height: 44%;
   background-image: url("../../../assets/icons/arrow-diagonal.svg");
   background-repeat: no-repeat;
   background-size: contain;
@@ -26,18 +26,18 @@
 .arrow-diagonal--left {
   transform-origin: center center;
   transform: scale(-1, 1);
-  right: 26px;
+  right: 91px;
 }
 
 .arrow-diagonal--right {
-  left: 26px;
+  left: 91px;
 }
 
 .step3-diagonal-fields {
-  width: calc(100% + 10px);
-  left: -5px;
+  width: calc(100% + -145px);
+  left: 73px;
   position: relative;
-  top: -28px;
+  top: 0px;
   height: 0;
   display: flex;
   justify-content: space-between;

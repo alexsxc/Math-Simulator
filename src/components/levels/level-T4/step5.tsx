@@ -10,7 +10,6 @@ export default function Step({ stepIndex, activeStep, draftState, onCompleteStep
   const [expression, setExpression] = useState(parseExpression(stepData.expression));
 
   useEffect(() => {
-    console.log(draftState);
     if(draftState.step5 != undefined) {
       setExpression(last => {
         const nextState = JSON.parse(JSON.stringify(last));

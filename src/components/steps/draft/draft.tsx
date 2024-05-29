@@ -21,9 +21,7 @@ export function DraftSumm({ inputValues, onChangeCorrectState }: IDraftSummProps
     } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
       newIsCorrect = 'incorrect';
     }
-    console.log(fieldValues, correctFields, newIsCorrect);
     const resultValue = Number([...fieldValues].join(''));
-    console.log(resultValue);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState?.(newIsCorrect, resultValue);
       setCorrect(newIsCorrect);
@@ -83,7 +81,6 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
     if (subResult != 0) {
       const lastSubDidivent = subDidivent;
       subDidivent = Math.floor(Number(subDidivent) % divisor).toString();
-      console.log(lastSubDidivent, subResult * divisor, subDidivent, subResult);
       subResults.push({ a: Number(lastSubDidivent), b: subResult * divisor, pos: i });
     }
   })
@@ -110,7 +107,6 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
     }
 
     const resultValue = Number([...fieldValues].join(''));
-    console.log(resultValue);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState?.(newIsCorrect, resultValue);
       setCorrect(newIsCorrect);
@@ -135,7 +131,6 @@ export function DraftDivide({ didivend, divisor, onChangeCorrectState, onChangeC
 
   useEffect(() => {
     if (currentStep == correctSubResultsFields.length) return;
-    console.log(correctSubResultsFields, currentStep);
     let newIsCorrect = 'empty';
     if (((correctSubResultsFields[currentStep]).a.find(it => it == 'incorrect' || it == 'empty') == undefined)
       && ((correctSubResultsFields[currentStep]).b.find(it => it == 'incorrect' || it == 'empty') == undefined)) {
@@ -250,9 +245,7 @@ export function DraftMul({ inputValues, onChangeCorrectState }: IDraftMulProps) 
     } else if (Object.values(correctFields).find(it => it == 'incorrect') != undefined) {
       newIsCorrect = 'incorrect';
     }
-    console.log(fieldValues, correctFields, newIsCorrect);
     const resultValue = Number([...fieldValues].join(''));
-    console.log(resultValue);
     if (isCorrect != newIsCorrect) {
       onChangeCorrectState?.(newIsCorrect, resultValue);
       setCorrect(newIsCorrect);
@@ -268,7 +261,6 @@ export function DraftMul({ inputValues, onChangeCorrectState }: IDraftMulProps) 
     }
 
     const resultValue = Number([...fieldValues].join(''));
-    console.log(resultValue);
     if (isSubResultsCorrect != newIsCorrect) {
       setIsSubResultsCorrect(newIsCorrect);
     }

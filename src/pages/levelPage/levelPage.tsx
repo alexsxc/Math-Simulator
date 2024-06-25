@@ -38,8 +38,7 @@ export function LevelPage() {
             </div>
           </div>
           <div className="status-bar__progress progress">
-            <LevelProgress completeCount={0} totalCount={15} />
-            <StepProgress completeCount={stepCompleteCount} totalCount={totalStepsCount - 1} />
+            <LevelProgress completeCount={1} totalCount={15} />
             <button className={`progress__button progress__button--hint ${isActiveHint ? "progress__button--hint-active" : ""}`}>
               <span>Подсказка</span>
             </button>

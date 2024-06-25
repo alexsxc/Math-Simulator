@@ -5,11 +5,11 @@ interface IMultiplyTableButtonProps {
   onClose: () => void 
 }
 
-export function MultiplyTableButton({onClose}: IMultiplyTableButtonProps) {
+export function MultiplyTableButton() {
   return (
     <div className="multiply-table-button">
     <div className="multiply-table-button__wrapper">
-      <button className="multiply-table-button__button" type="button" onClick={() => onClose()}>
+      <button className="multiply-table-button__button" type="button" >
         <span className="multiply-table-button__text">Таблица умножения</span></button>
     </div>
   </div>

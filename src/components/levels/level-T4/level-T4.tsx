@@ -33,7 +33,7 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
 
   useEffect(() => {
     let timerId: ReturnType<typeof setTimeout>;
-    if(isOpenDraft) {
+    if (isOpenDraft) {
       timerId = setTimeout(() => {
         setIsOpenedDraft(true);
       }, 3000);
@@ -46,41 +46,50 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
     }
   }, [isOpenDraft]);
 
+  const handleCompleteStep = (index: number) => {
+    const nextStep = Math.max(index + 1, activeStep);
+    setActiveSubStep(0);
+    setActiveStep(last => Math.max(index + 1, last));
+    onCompleteStep(nextStep, steps.length);
+
+    console.log(`Step ${index} completed`);
+
+    // Automatically open draft for step 1 completion
+    if (index === 1) {
+      setIsOpenDraft(true);
+      setIsOpenedDraft(true);
+      console.log('Draft opened automatically after step 1');
+    }
+
+    setTimeout(() => {
+      if ([4, 5].includes(nextStep)) {
+        setIsOpenDraft(true);
+        setIsOpenedDraft(true);
+        console.log('Draft opened automatically for steps 4 and 5');
+      }
+      if (nextStep === steps.length) {
+        onCompleteLevel();
+        setIsComplete(true);
+      }
+    }, 1000);
+  };
+
   return (
     <div className="level">
       <div className="level__buttons">
-      <Crib />
-      <MultiplyTableButton onClose={() => {
-        isOpenMultiplyTable ? setIsOpenMultiplyTable(false) : setIsOpenMultiplyTable(true);
-      }}/>
-      </div>    
+        <MultiplyTableButton />
+      </div>
       <div className="full-expression-wrapper">
         <div className="full-expression">
           {
             steps.map((Step, stepIndex) => {
               return (
                 stepIndex <= activeStep && <Step key={stepIndex} draftState={draftState} stepIndex={stepIndex} activeStep={activeStep}
-                  onCompleteStep={(index) => {
-                    const nextStep = Math.max(index + 1, activeStep);
-                    setActiveSubStep(0);
-
-                    setActiveStep(last => Math.max(index + 1, last));
-                    onCompleteStep(nextStep, steps.length);
-
-                    activeStep < 5 && setIsOpenDraft(false);                    
-                    setTimeout(() => {
-                      if ([4, 5].includes(nextStep)) {
-                        setIsOpenDraft(true);
-                      }
-                      if (nextStep == steps.length) {
-                        onCompleteLevel();
-                        setIsComplete(true);
-                      }
-                    }, 1000);                    
-                  }}
+                  onCompleteStep={handleCompleteStep}
                   onCompleteSubStep={(index, subStepIndex) => {
-                    if (subStepIndex == 2 && index == 3) {
+                    if (subStepIndex === 2 && index === 3) {
                       setIsOpenDraft(true);
+                      setIsOpenedDraft(true);
                     }
                     setActiveSubStep(subStepIndex);
                   }}
@@ -95,32 +104,33 @@ export default function Level({ onCompleteStep, onCompleteLevel, onChangeCorrect
       <button type="button" className="open-draft-button" onClick={() => {
         setIsOpenDraft(true);
         setIsOpenedDraft(true);
-      }} disabled={!((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2))}>Черновик</button>
-      {<DraftPopup isOpen={isOpenedDraft} onClose={() => {
+      }} disabled={!((activeStep >= 2) || (activeStep === 3 && activeSubStep >= 2))}>Черновик</button>
+      <DraftPopup isOpen={isOpenedDraft} onClose={() => {
         setIsOpenDraft(false);
+        setIsOpenedDraft(false);
       }}>
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && activeStep < 5 && <DraftMul inputValues={[29, 7]} 
-        onChangeCorrectState={(isCorrect, draftValue) => { 
-         (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step3_1: draftValue}))
-        }}/>}
-        {((activeStep > 3) || (activeStep == 3 && activeSubStep >= 2)) && activeStep < 5 && <DraftMul inputValues={[31, 9]} 
-        onChangeCorrectState={(isCorrect, draftValue) => { 
-          (isCorrect == 'correct') && setDraftState((last: any ) => ({...last, step3_2: draftValue}))
-        }}/>}
-        {activeStep >= 4 && activeStep < 5 && <DraftSumm inputValues={[203, 279]} 
-         onChangeCorrectState={(isCorrect, draftValue) => { 
-          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step5: draftValue}))
-         }}/>}
-        {activeStep >= 5 && <DraftDivide didivend={482} divisor={63} 
-         onChangeCorrectState={(isCorrect, draftValue) => { 
-          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_1: draftValue}))
-         }}
-         onChangeCorrectModState={(isCorrect, draftValue) => {         
-          (isCorrect == 'correct') && setDraftState((last: any )=> ({...last, step6_2: draftValue}));
-          (isCorrect == 'correct') && setShowDivideComment(true);
-         }}/>}
-      {showDivideComment && <DivideComment mod={41} diviser={7}/>}
-      </DraftPopup>}
+        {((activeStep >= 2) || (activeStep === 3 && activeSubStep >= 2)) && activeStep < 5 && <DraftMul inputValues={[27, 85]}
+          onChangeCorrectState={(isCorrect, draftValue) => {
+            (isCorrect === 'correct') && setDraftState((last: any) => ({ ...last, step2_2: draftValue }))
+          }} />}
+        {((activeStep > 3) || (activeStep === 3 && activeSubStep >= 2)) && activeStep < 5 && <DraftMul inputValues={[31, 9]}
+          onChangeCorrectState={(isCorrect, draftValue) => {
+            (isCorrect === 'correct') && setDraftState((last: any) => ({ ...last, step3_2: draftValue }))
+          }} />}
+        {activeStep >= 4 && activeStep < 5 && <DraftSumm inputValues={[203, 279]}
+          onChangeCorrectState={(isCorrect, draftValue) => {
+            (isCorrect === 'correct') && setDraftState((last: any) => ({ ...last, step5: draftValue }))
+          }} />}
+        {activeStep >= 5 && <DraftDivide didivend={482} divisor={63}
+          onChangeCorrectState={(isCorrect, draftValue) => {
+            (isCorrect === 'correct') && setDraftState((last: any) => ({ ...last, step6_1: draftValue }))
+          }}
+          onChangeCorrectModState={(isCorrect, draftValue) => {
+            (isCorrect === 'correct') && setDraftState((last: any) => ({ ...last, step6_2: draftValue }));
+            (isCorrect === 'correct') && setShowDivideComment(true);
+          }} />}
+        {showDivideComment && <DivideComment mod={41} diviser={7} />}
+      </DraftPopup>
       <MultiplyTable isOpen={isOpenMultiplyTable} />
     </div>
   )

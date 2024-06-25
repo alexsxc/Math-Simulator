@@ -1,8 +1,9 @@
 .level__buttons {
-  display: flex;
-  gap: 30px;
 }
-
+.bigbig {
+  font-weight: 900;
+  font-size: 16px;
+}
 .step3-expression-wrapper {
   position: relative;
 }
@@ -201,4 +202,8 @@
   line-height: 24px;
   font-weight: 600;
   color: #000;
+}
+.heq {
+  bottom: 210px;
+  transform: translate(-90%, 100%);
 }

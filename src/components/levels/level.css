@@ -1,7 +1,8 @@
 .full-expression{
-    height: 448px;
+    height: 461px;
     display: flex;
     align-items: center;
+    padding-bottom: 104px;
 }
 
 .equal{

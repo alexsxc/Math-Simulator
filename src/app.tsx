@@ -13,8 +13,7 @@ export default function App() {
       <Header />
       <HashRouter>
         <Routes>
-          <Route path={"/level/:id"} element={<LevelPage />} />  
-          <Route path={"/"} element={<NavigatePage />}  />         
+          <Route path={"/level/:id"} element={<LevelPage />} />    
         </Routes>
       </HashRouter>
     </div>

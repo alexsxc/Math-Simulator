@@ -6,8 +6,15 @@
     line-height: 32px;
     font-weight: 600;
     color: #000;
+    gap: 10px;
 }
-
+.full-expression {
+    height: 420px;
+}
+.expression-comma {
+    padding-top: 28px;
+    margin: -4px;
+  }
 .expression-field {
     display: flex;
     align-items: center;
@@ -60,7 +67,7 @@
     line-height: 32px;
     font-weight: 600;
     color: #000;
-    border: 1px solid rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.64);
     border-radius: 12px;
 }
 
@@ -149,4 +156,22 @@
 .bracket--close {
     transform: scaleX(-1);
     transform-origin: center;
+}
+.expression {
+    display: flex;
+}
+.step-1 > .expression-wrapper > .expression-number {
+    border: 1px solid #3CC7FF;
+    background-color: #3CC7FF0A;
+}
+.step-1 > .hint-slot {
+    padding-right: 88px;
+}
+.one > .expression-wrapper > .expression-number {
+    background-color: rgba(0, 198, 79, 0.04);
+    border:1px solid #00C64F;
+}
+.hey > .expression-wrapper > .expression-number {
+    background: rgba(0, 198, 79, 0.04);
+    border: 1px solid #00C64F;
 }

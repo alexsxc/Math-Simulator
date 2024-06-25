@@ -4,5 +4,6 @@ export interface IStepProps {
   onCompleteStep: (step: number) => void;
   onChangeCorrectStepState: (step: number, state: string) => void;
   onCompleteSubStep?: (step: number, subStep: number) => void;
-  draftState: any
+  draftState: any;
+  isSubStep2Completed?: boolean;
 }

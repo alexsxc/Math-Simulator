@@ -32,7 +32,8 @@ export function LevelPage() {
         <div className="status-bar">
           <div className="status-bar__path-wrapper">
             <div className="level-path">
-              <p className="level-path__item"> / Арифметические действия с обыкновенными дробями. </p>
+              <p className="level-path__item">
+                Тренажер/ Арифметические действия с обыкновенными дробями. </p>
               <p className="level-path__item">Умножение.</p>
             </div>
           </div>

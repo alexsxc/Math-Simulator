@@ -8,7 +8,7 @@ import Step3 from "./step3";
 import Step5 from "./step5";
 import Step6 from "./step6";
 import '../level.css';
-import './level-T4.css';
+import './level-T8.css';
 import { Crib } from "../../crib/crib";
 import { MultiplyTableButton } from "../../multiply-table/multiply-table-button";
 import { MultiplyTable } from "../../multiply-table/multiply-table";

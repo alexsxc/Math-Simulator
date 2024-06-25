@@ -3,7 +3,7 @@ import { LevelProgress } from "../../components/levelProgress/levelProgress";
 import { StepProgress } from "../../components/stepProgress/stepProgress";
 import { Link, useParams } from "react-router-dom";
 import { SuccessPopup, ErrorPopup } from "../../components/messagePopup/messagePopup";
-import LevelT4 from "../../components/levels/level-T4/level-T4";
+import LevelT4 from "../../components/levels/level-T8/level-T8";
 import './levelPage.css';
 
 export function LevelPage() {
@@ -32,8 +32,7 @@ export function LevelPage() {
         <div className="status-bar">
           <div className="status-bar__path-wrapper">
             <div className="level-path">
-              <p className="level-path__item">
-                <Link to="/">Тренажер</Link> / Арифметические действия с обыкновенными дробями. </p>
+              <p className="level-path__item"> / Арифметические действия с обыкновенными дробями. </p>
               <p className="level-path__item">Умножение.</p>
             </div>
           </div>

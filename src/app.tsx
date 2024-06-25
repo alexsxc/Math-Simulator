@@ -12,11 +12,11 @@ export default function App() {
     <div className="app">
       <Header />
       <HashRouter>
-        <Routes>
-          <Route path={"/level/:id"} element={<LevelPage />} />  
-          <Route path={"/"} element={<NavigatePage />}  />         
-        </Routes>
-      </HashRouter>
+      <Routes>
+        <Route path="/level/:id" element={<LevelPage />} />
+        <Route path="/" element={<NavigatePage />} />
+      </Routes>
+    </HashRouter>
     </div>
   )
 }
